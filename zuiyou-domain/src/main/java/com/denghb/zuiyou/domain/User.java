@@ -16,7 +16,7 @@ CREATE TABLE `user` (
   `email` varchar(100) NOT NULL DEFAULT '' COMMENT '邮箱',
   `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '插入时间',
   `updated_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` tinyint(4) NOT NULL DEFAULT '1' COMMENT '逻辑删除',
+  `deleted` tinyint(4) NOT NULL DEFAULT '0' COMMENT '逻辑删除',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_USERNAME` (`username`),
   KEY `IDX_CREATED_TIME` (`created_time`),
@@ -25,7 +25,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8
  <pre>
  * @author DbHelper
- * @generateTime Tue Apr 18 00:49:08 CST 2017
+ * @generateTime Wed Apr 19 00:26:17 CST 2017
  */
 @Table(name="user",database="crazy_invest")
 public class User implements java.io.Serializable {

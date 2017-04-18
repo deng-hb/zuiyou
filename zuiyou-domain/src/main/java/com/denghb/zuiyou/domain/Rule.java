@@ -26,7 +26,7 @@ CREATE TABLE `rule` (
   `wait_repay_max` decimal(10,2) DEFAULT NULL COMMENT '最大待还金额',
   `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '插入时间',
   `updated_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` tinyint(4) NOT NULL DEFAULT '1' COMMENT '逻辑删除',
+  `deleted` tinyint(4) NOT NULL DEFAULT '0' COMMENT '逻辑删除',
   PRIMARY KEY (`id`),
   KEY `IDX_CREATED_TIME` (`created_time`),
   KEY `IDX_UPDATED_TIME` (`updated_time`),
@@ -34,7 +34,7 @@ CREATE TABLE `rule` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8
  <pre>
  * @author DbHelper
- * @generateTime Tue Apr 18 00:49:08 CST 2017
+ * @generateTime Wed Apr 19 00:26:17 CST 2017
  */
 @Table(name="rule",database="crazy_invest")
 public class Rule implements java.io.Serializable {

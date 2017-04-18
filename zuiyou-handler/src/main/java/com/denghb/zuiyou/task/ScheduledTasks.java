@@ -1,6 +1,7 @@
 package com.denghb.zuiyou.task;
 
 import com.denghb.slf4j2elk.utils.HttpUtils;
+import com.denghb.zuiyou.common.Constants;
 import com.denghb.zuiyou.domain.Loan;
 import com.denghb.zuiyou.domain.Pdu;
 import com.denghb.zuiyou.handler.InvestHandler;
@@ -75,10 +76,10 @@ public class ScheduledTasks {
 
         // TODO 异步？
         String json1 = JacksonUtils.toJson(list);
-        HttpUtils.send("https://api.c-i.bid/loan/receive", json1);
+        HttpUtils.send(Constants.Server.LOAN_RECEIVE_URL, json1);
 
         String json2 = JacksonUtils.toJson(list2);
-        HttpUtils.send("https://api.c-i.bid/pdu/receive", json2);
+        HttpUtils.send(Constants.Server.PDU_RECEIVE, json2);
 
 
     }

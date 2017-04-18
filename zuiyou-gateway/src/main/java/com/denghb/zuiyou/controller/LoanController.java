@@ -4,6 +4,8 @@ import com.denghb.zuiyou.domain.Loan;
 import com.denghb.zuiyou.service.LoanService;
 import com.denghb.zuiyou.utils.JacksonUtils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +21,8 @@ import java.util.List;
 @RestController
 public class LoanController {
 
+    private Logger log = LoggerFactory.getLogger(LoanController.class);
+
     @Autowired
     private LoanService loanService;
 
@@ -32,14 +36,13 @@ public class LoanController {
                 wholeStr += str;
             }
 
-            System.out.println(wholeStr);
             List<Loan> list = JacksonUtils.toList(wholeStr, Loan.class);
 
             for (Loan loan : list) {
                 loanService.create(loan);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         }
         return "ok";
     }

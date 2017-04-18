@@ -14,7 +14,7 @@ public interface UserRuleAuthService {
      *
      * @param currentUser
      * @param pdu
-     * @param cookie
+     * @param token
      */
-    void bind(CurrentUser currentUser, String pdu, String cookie);
+    void bind(CurrentUser currentUser, String pdu, String token);
 }

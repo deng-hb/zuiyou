@@ -3,6 +3,8 @@ package com.denghb.zuiyou.controller;
 import com.denghb.zuiyou.domain.Pdu;
 import com.denghb.zuiyou.service.PduService;
 import com.denghb.zuiyou.utils.JacksonUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +20,8 @@ import java.util.List;
 @RestController
 public class PduController {
 
+    private Logger log = LoggerFactory.getLogger(PduController.class);
+
     @Autowired
     private PduService pduService;
 
@@ -31,14 +35,13 @@ public class PduController {
                 wholeStr += str;
             }
 
-            System.out.println(wholeStr);
             List<Pdu> list = JacksonUtils.toList(wholeStr, Pdu.class);
 
             for (Pdu pdu : list) {
                 pduService.create(pdu);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         }
         return "ok";
     }

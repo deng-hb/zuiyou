@@ -17,15 +17,15 @@ CREATE TABLE `invest_history` (
   `remarks` varchar(200) DEFAULT NULL COMMENT '备注',
   `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '插入时间',
   `updated_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` tinyint(4) NOT NULL DEFAULT '1' COMMENT '逻辑删除',
+  `deleted` tinyint(4) NOT NULL DEFAULT '0' COMMENT '逻辑删除',
   PRIMARY KEY (`id`),
   KEY `IDX_CREATED_TIME` (`created_time`),
   KEY `IDX_UPDATED_TIME` (`updated_time`),
   KEY `IDX_DELETED` (`deleted`)
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8
+) ENGINE=InnoDB AUTO_INCREMENT=750 DEFAULT CHARSET=utf8
  <pre>
  * @author DbHelper
- * @generateTime Tue Apr 18 00:49:08 CST 2017
+ * @generateTime Wed Apr 19 00:26:16 CST 2017
  */
 @Table(name="invest_history",database="crazy_invest")
 public class InvestHistory implements java.io.Serializable {

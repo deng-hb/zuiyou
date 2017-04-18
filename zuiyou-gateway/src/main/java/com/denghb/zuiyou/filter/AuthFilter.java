@@ -50,7 +50,8 @@ public class AuthFilter implements Filter {
 
             JsonModel model = new JsonModel();
             model.setCode(2);
-            model.setMsg("未授权");
+            model.setMsg("未登录或会话超时，请重新登录！");
+            model.setData("/");// 首页
             String json = JacksonUtils.toJson(model);
 
             response.getWriter().write(json);

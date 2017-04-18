@@ -3,7 +3,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Crazy Invest</title>
+    <title>最优投标</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="format-detection" content="telephone=no">
@@ -11,6 +11,7 @@
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <link rel="alternate icon" type="image/png" href="assets/images/favicon.png">
     <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="assets/js/plug-in/pace.atom.css"/>
     <style>
     .get {
       background: #0bb59b;
@@ -71,7 +72,7 @@
 <header class="am-topbar am-topbar-fixed-top">
     <div class="am-container">
         <h1 class="am-topbar-brand">
-            <a href="/">Crazy Invest</a>
+            <a href="/">最优投标</a>
         </h1>
     </div>
 </header>
@@ -84,7 +85,7 @@
                 <div class="am-u-lg-7">
                     <h1 class="get-title">一个简洁且强大的自动投标工具</h1>
                     <p>
-                        期待您的加入，<a href="javascript: void((function() {var element = document.createElement('script');element.id = 'zuiyou';element.charset = 'utf-8',element.setAttribute('src', 'https://c-i.bid/assets/bind.js?_=' + Math.random();document.body.appendChild(element);})())" class="am-btn am-btn-sm get-btn">绑定pdu</a>
+                        期待您的加入，<a href="javascript: void((function(){var b,c,d,a='ppdai.com';if(-1==document.domain.indexOf(a))return alert('请在拍拍贷网页操作'),window.location.href='http://'+a,void 0;try{b=document.cookie,c=b.match(/token=(\S*);/)[1],d=b.match(/ppd_uname=(\S*);/)[1],window.location.href='https://zuiyou.bid?token='+c+'&pdu='+d}catch(e){alert('请登录拍拍贷后操作')}})())" class="am-btn am-btn-sm get-btn">绑定pdu</a>
                     </p>
                 </div>
                 <div class="am-u-lg-5" style="background:#ffffff">
@@ -96,9 +97,9 @@
                         </ul>
 
                         <div class="am-tabs-bd">
-                            <div class="am-tab-panel am-fade am-in am-active" id="signin" method="POST">
+                            <div class="am-tab-panel am-fade am-in am-active" id="signin">
 
-                                <form id="signin-form" class="am-form" data-am-validator>
+                                <form id="signin-form" class="am-form" data-am-validator method="POST">
                                     <fieldset>
                                     <div class="am-form-group">
                                         <label for="signin-username" class="about-color">账号</label>
@@ -124,8 +125,8 @@
                                 </form>
                             </div>
 
-                            <div class="am-tab-panel am-fade" id="signup" method="POST">
-                                <form id="signup-form" action="https://api.c-i.bid/user/signup" class="am-form" data-am-validator>
+                            <div class="am-tab-panel am-fade" id="signup">
+                                <form id="signup-form" method="POST" class="am-form" data-am-validator>
                                     <fieldset>
                                         <div class="am-form-group">
                                             <label for="signup-username">账号：</label>
@@ -214,7 +215,7 @@
 
 
 <footer class="footer">
-    <p>&copy; 2016 <a href="https://c-i.bid" target="_blank">Crazy Invest</a>.</p>
+    <p>&copy; 2016 <a href="https://zuiyou.bid" target="_blank">最优投标</a>.</p>
 </footer>
 
 <script src="assets/js/jquery.min.js"></script>
@@ -223,6 +224,9 @@
 <script src="assets/js/amazeui.min.js"></script>
 <script src="assets/js/md5.js"></script>
 <script src="assets/js/config.js"></script>
+<script src="assets/js/jquery.cookie.js"></script>
+<script src="assets/js/plug-in/jump.js"></script>
+<script src="assets/js/plug-in/pace.min.js"></script>
 <!--[if lt IE 9]>
 <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
 <script src="assets/js/amazeui.ie8polyfill.min.js"></script>
@@ -246,7 +250,20 @@ $(function(){
         $('.gt_refresh_button').click();
         console.log(data);
         if(data.code){
-            window.location.href = '/admin.html';
+            // 保存
+            var token = $.cookie('auth-token');
+            var pdu = $.cookie('auth-pdu');
+            if (token && pdu){
+                jq.ajax(zuiyou.bind,{'token':token,'pdu':pdu},function(data){
+                    $.removeCookie('auth-token');
+                    $.removeCookie('auth-pdu');
+                    alert("授权成功");
+                    jump('/admin.html');
+                });
+            } else {
+                jump('/admin.html');
+            }
+
         }
     });
 
@@ -278,6 +295,21 @@ $(function(){
         $('#signup-password-value').val(md5($password.val()));
 
     });
+
+    var token = $.getUrlParam('token');
+    var pdu = $.getUrlParam('pdu');
+    if (token && pdu){
+        // 保存
+        $.cookie('auth-token',token, { expires: 7 });
+        $.cookie('auth-pdu',pdu, { expires: 7 });
+        jq.ajax(zuiyou.bind,{'token':token,'pdu':pdu},function(data){
+            $.removeCookie('auth-token');
+            $.removeCookie('auth-pdu');
+            console.log(data);
+            alert("授权成功");
+            jump('/admin.html');
+        });
+    }
 });
 </script>
 </body>

@@ -24,9 +24,9 @@ import java.util.Map;
  */
 public class InvestHandler {
 
-    private Logger log = LoggerFactory.getLogger(InvestHandler.class);
+    private static Logger log = LoggerFactory.getLogger(InvestHandler.class);
 
-    private String INVEST_URL = "http://invest.ppdai.com/bid/info?listingId=%d&money=%d";
+    private static String INVEST_URL = "http://invest.ppdai.com/bid/info?listingId=%d&money=%d";
 
     public InvestHandler(Loan loan, Pdu pdu) {
 
@@ -58,6 +58,13 @@ public class InvestHandler {
         if (null == rule.getLimitMax() || rule.getLimitMax().intValue() < loan.getLimit().intValue()) {
             return false;
         }
+        // 利率
+        if (null == rule.getRateMin() || rule.getRateMin().doubleValue() > loan.getRate().doubleValue()){
+            return false;
+        }
+        if (null == rule.getLimitMax() || rule.getLimitMax().doubleValue() < loan.getRate().doubleValue()){
+            return false;
+        }
         return true;
     }
 
@@ -71,7 +78,8 @@ public class InvestHandler {
     private void run(RuleVo rule, Loan loan, Pdu pdu) {
         String url = String.format(INVEST_URL, loan.getId(), rule.getAmount().intValue());
         Connection connection = Jsoup.connect(url);
-        connection.header("Cookie", rule.getAuth());
+        // 这样就登录了。。。。
+        connection.header("Cookie", String.format("token=%s;",rule.getToken()));
         Document document = null;
         try {
             document = connection.get();
@@ -93,5 +101,17 @@ public class InvestHandler {
         map.put("userId", rule.getUserId().toString());
         map.put("loanId", loan.getId().toString());
         HttpUtils.post(Constants.Server.INVEST_HISTORY_CREATE_URL, map);
+    }
+
+    public static void main(String[] args){
+        Connection connection = Jsoup.connect("http://www.ppdai.com/user/pdu4248118068");
+        //connection.header("Cookie", "token=41d208ac-0e4e-4e3b-840a-33a2ea4dfbbb;");
+        Document document = null;
+        try {
+            document = connection.get();
+            System.out.println(document);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

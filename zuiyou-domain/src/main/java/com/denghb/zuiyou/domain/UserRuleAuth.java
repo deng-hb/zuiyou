@@ -16,10 +16,10 @@ CREATE TABLE `user_rule_auth` (
   `pdu` varchar(20) NOT NULL COMMENT '绑定pdu',
   `is_open` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0:关闭，1:开启',
   `balance` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '用户余额',
-  `auth` varchar(1000) NOT NULL DEFAULT '',
+  `token` varchar(100) NOT NULL DEFAULT '',
   `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '插入时间',
   `updated_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` tinyint(4) NOT NULL DEFAULT '1' COMMENT '逻辑删除',
+  `deleted` tinyint(4) NOT NULL DEFAULT '0' COMMENT '逻辑删除',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_PDU` (`pdu`),
   KEY `IDX_CREATED_TIME` (`created_time`),
@@ -28,7 +28,7 @@ CREATE TABLE `user_rule_auth` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8
  <pre>
  * @author DbHelper
- * @generateTime Tue Apr 18 00:49:08 CST 2017
+ * @generateTime Wed Apr 19 00:26:17 CST 2017
  */
 @Table(name="user_rule_auth",database="crazy_invest")
 public class UserRuleAuth implements java.io.Serializable {
@@ -60,8 +60,8 @@ public class UserRuleAuth implements java.io.Serializable {
 	private java.math.BigDecimal balance;
 	
 	/**  */
-	@Column(name="auth")
-	private String auth;
+	@Column(name="token")
+	private String token;
 	
 	/** 插入时间 */
 	@Column(name="created_time")
@@ -124,12 +124,12 @@ public class UserRuleAuth implements java.io.Serializable {
 		this.balance = balance;
 	}
 
-	public String getAuth(){
-		return auth;
+	public String getToken(){
+		return token;
 	}
 
-	public void setAuth(String auth){
-		this.auth = auth;
+	public void setToken(String token){
+		this.token = token;
 	}
 
 	public java.util.Date getCreatedTime(){
@@ -183,8 +183,8 @@ public class UserRuleAuth implements java.io.Serializable {
 		str.append(balance);
 		str.append("\"");
 		str.append(",");
-		str.append("auth=\"");
-		str.append(auth);
+		str.append("token=\"");
+		str.append(token);
 		str.append("\"");
 		str.append(",");
 		str.append("createdTime=\"");

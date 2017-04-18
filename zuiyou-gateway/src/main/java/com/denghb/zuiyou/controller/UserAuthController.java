@@ -7,11 +7,10 @@ import com.denghb.zuiyou.utils.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by denghb on 2017/4/11.
@@ -34,25 +33,18 @@ public class UserAuthController {
     public JsonModel bind(HttpServletRequest request) {
         JsonModel json = new JsonModel();
         try {
-            String c = request.getParameter("c");
+            String pdu  = request.getParameter("pdu");
+            String token = request.getParameter("token");
             CurrentUser currentUser = WebUtils.getCurrentUser(request);
-            String pdu = getPdu(c);
-            userRuleAuthService.bind(currentUser, pdu, c);
+            userRuleAuthService.bind(currentUser, pdu, token);
             json.setCode(1);
+            json.setMsg("绑定成功");
         } catch (Exception e) {
             log.warn(e.getMessage(), e);
             json.setCode(0);
+            json.setMsg("绑定失败");
         }
         return json;
-    }
-
-    private String getPdu(String c) {
-        Pattern pattern = Pattern.compile("ppd_uname=(\\S*);");
-        Matcher matcher = pattern.matcher(c);
-        if (matcher.find()) {
-            return matcher.group(1);
-        }
-        return null;
     }
 
 }

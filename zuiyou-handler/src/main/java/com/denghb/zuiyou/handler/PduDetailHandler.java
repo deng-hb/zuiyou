@@ -31,7 +31,6 @@ public class PduDetailHandler {
             return pdu;// 终止
         }
 
-//        System.out.println(document);
         // 剩余额度
         flag:
         for (Element element : document.select("#listRestMoney")) {
@@ -62,7 +61,6 @@ public class PduDetailHandler {
         // 借款人信息
         flag:
         for (Element element : document.select(".lender-info")) {
-            // System.out.println(element.text());
             String html = element.text();
             String[] strings = html.split(" ");
             for (int i = 0; i < strings.length; i++) {
@@ -206,7 +204,6 @@ public class PduDetailHandler {
             //
             break flag;
         }
-//        System.out.println(pdu);
         return pdu;
 
     }

@@ -1,8 +1,7 @@
 // 配置
 window.zuiyou = {
-
-    base:"https://gateway.zuiyou.bid",
-    signin:this.base+"/user/signin",
-    signup:this.base+"/user/signup",
+    signin:"https://gateway.zuiyou.bid/user/signin",
+    signup:"https://gateway.zuiyou.bid/user/signup",
+    bind:"https://gateway.zuiyou.bid/user/auth/bind"
 };
 

@@ -76,8 +76,15 @@ jq.error = function(data){
 
 	// 2 超时、3 没有权限
 	if(2 == data.code || 3 == data.code){
-		window.location.href = data.object;
+	    alert(data.msg);
+		window.location.href = data.data;
 		return true;
 	}
 	return false;
+}
+
+$.getUrlParam = function (name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]); return null;
 }

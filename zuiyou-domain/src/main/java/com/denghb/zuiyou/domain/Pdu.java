@@ -43,7 +43,7 @@ CREATE TABLE `pdu` (
   `header_img_url` varchar(200) DEFAULT NULL COMMENT '头像地址',
   `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '插入时间',
   `updated_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` tinyint(4) NOT NULL DEFAULT '1' COMMENT '逻辑删除',
+  `deleted` tinyint(4) NOT NULL DEFAULT '0' COMMENT '逻辑删除',
   PRIMARY KEY (`pdu`),
   KEY `IDX_CREATED_TIME` (`created_time`),
   KEY `IDX_UPDATED_TIME` (`updated_time`),
@@ -51,7 +51,7 @@ CREATE TABLE `pdu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
  <pre>
  * @author DbHelper
- * @generateTime Tue Apr 18 00:49:08 CST 2017
+ * @generateTime Wed Apr 19 00:26:17 CST 2017
  */
 @Table(name="pdu",database="crazy_invest")
 public class Pdu implements java.io.Serializable {

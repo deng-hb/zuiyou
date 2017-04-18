@@ -19,18 +19,18 @@ public class UserRuleAuthServiceImpl implements UserRuleAuthService {
 
     @Override
     @Transactional
-    public void bind(CurrentUser currentUser, String pdu, String cookie) {
+    public void bind(CurrentUser currentUser, String pdu, String token) {
         long userId = currentUser.getUserId();
         // is_open = 1 表示启用
-        UserRuleAuth ura = db.queryForObject("select * from user_rule_auth where and user_id = ? and pdu = ? ", UserRuleAuth.class, userId, pdu);
+        UserRuleAuth ura = db.queryForObject("select * from user_rule_auth where user_id = ? and pdu = ? ", UserRuleAuth.class, userId, pdu);
         if (null != ura) {
             // 更新
-            ura.setAuth(cookie);
+            ura.setToken(token);
             db.updateById(ura);
         } else {
             // 新建
             ura = new UserRuleAuth();
-            ura.setAuth(cookie);
+            ura.setToken(token);
             ura.setPdu(pdu);
             ura.setUserId(userId);
             db.insert(ura);
