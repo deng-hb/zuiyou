@@ -7,10 +7,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>zuiyou-common</artifactId>
+    <artifactId>zuiyou-domain</artifactId>
     <packaging>jar</packaging>
 
-    <name>zuiyou-common</name>
+    <name>zuiyou-domain</name>
     <url>https://zuiyou.bid/</url>
 
     <properties>
@@ -18,11 +18,10 @@
     </properties>
 
     <dependencies>
-
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.8.7</version>
+            <groupId>com.denghb</groupId>
+            <artifactId>dbhelper</artifactId>
+            <version>3.0.3</version>
         </dependency>
     </dependencies>
 </project>
