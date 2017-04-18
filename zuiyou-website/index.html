@@ -222,6 +222,7 @@
 <script src="assets/js/jq.utils.js"></script>
 <script src="assets/js/amazeui.min.js"></script>
 <script src="assets/js/md5.js"></script>
+<script src="assets/js/config.js"></script>
 <!--[if lt IE 9]>
 <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
 <script src="assets/js/amazeui.ie8polyfill.min.js"></script>
@@ -230,7 +231,7 @@
 $(function(){
 
     var $signin_form = $('#signin-form');
-    $signin_form.attr('action',"https://api.c-i.bid/user/signin");
+    $signin_form.attr('action',zuiyou.signin);
     jq.form($signin_form, function(){
         var geetest_challenge = $('.geetest_challenge').val();
         var geetest_validate = $('.geetest_validate').val();
@@ -259,7 +260,9 @@ $(function(){
 
     });
 
-    jq.form($('#signup-form'), function(){return true}, function(data){
+    var $signup_form = $('#signup-form');
+    $signup_form.attr('action',zuiyou.signup);
+    jq.form($signup_form, function(){return true}, function(data){
         console.log(data);
         if(data.code){
             window.location.href = '/admin.html';
