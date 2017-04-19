@@ -177,7 +177,8 @@ public class LoanListHandler {
         // 递归
         if (total >= 10 * ++page) {
             try {
-                Thread.sleep(3000);
+                log.info("execute page " + page);
+                Thread.currentThread().sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
