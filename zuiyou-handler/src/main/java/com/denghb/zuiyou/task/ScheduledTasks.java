@@ -44,6 +44,19 @@ public class ScheduledTasks {
         run(8);
     }
 
+
+    @Scheduled(fixedRate = 4000)
+    public void run2() {
+        log.info("run2 time is now {}", dateFormat.format(new Date()));
+        run(4);
+    }
+
+    @Scheduled(fixedRate = 3000)
+    public void run3() {
+        log.info("run3 time is now {}", dateFormat.format(new Date()));
+        run(5);
+    }
+
     private void run(int type) {
 
 
