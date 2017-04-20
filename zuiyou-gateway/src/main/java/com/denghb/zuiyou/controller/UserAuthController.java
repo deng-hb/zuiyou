@@ -1,5 +1,6 @@
 package com.denghb.zuiyou.controller;
 
+import com.denghb.zuiyou.domain.vo.UserRuleAuthVo;
 import com.denghb.zuiyou.model.CurrentUser;
 import com.denghb.zuiyou.model.JsonModel;
 import com.denghb.zuiyou.service.UserRuleAuthService;
@@ -47,4 +48,20 @@ public class UserAuthController {
         return json;
     }
 
+    @RequestMapping("/info")
+    public JsonModel info(HttpServletRequest request){
+
+        JsonModel json = new JsonModel();
+        try {
+            CurrentUser currentUser = WebUtils.getCurrentUser(request);
+            UserRuleAuthVo vo = userRuleAuthService.queryUserRuleAuthInfo(currentUser);
+            json.setCode(1);
+            json.setData(vo);
+        } catch (Exception e) {
+            log.warn(e.getMessage(), e);
+            json.setCode(0);
+            json.setMsg("查询失败");
+        }
+        return json;
+    }
 }

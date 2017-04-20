@@ -11,7 +11,10 @@
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <link rel="alternate icon" type="image/png" href="assets/images/favicon.png">
     <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
-    <link rel="stylesheet" href="assets/js/plug-in/pace.css"/>
+    <script id="loader.js" src="assets/js/loader.js"
+            config="{base:'assets/js/',items:['jquery.min.js','jquery.form.min.js',
+            'amazeui.min.js','jq.utils.js','md5.js','config.js','jquery.cookie.js']}"></script>
+    <script src="assets/js/plug-in/jump.js"></script>
     <style>
     .get {
       background: #0bb59b;
@@ -118,7 +121,7 @@
 
                                     <div class="am-form-group">
                                         <button id="signin-submit" type="submit" class="am-btn am-btn-primary am-btn-sm am-fl">登 录</button>
-                                        <a href="/admin.html" class="am-btn am-btn-default am-btn-sm am-fr">忘记密码?</a>
+                                        <a href="/dashboard.html" class="am-btn am-btn-default am-btn-sm am-fr">忘记密码?</a>
                                     </div>
                                     </fieldset>
 
@@ -215,22 +218,10 @@
 
 
 <footer class="footer">
-    <p>&copy; 2016 <a href="https://zuiyou.bid" target="_blank">最优投标</a>.</p>
+    <p>&copy; 2017 <a href="https://zuiyou.bid" target="_blank">最优投标</a>.</p>
 </footer>
 
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/jquery.form.min.js"></script>
-<script src="assets/js/jq.utils.js"></script>
-<script src="assets/js/amazeui.min.js"></script>
-<script src="assets/js/md5.js"></script>
-<script src="assets/js/config.js"></script>
-<script src="assets/js/jquery.cookie.js"></script>
-<script src="assets/js/plug-in/jump.js"></script>
-<script src="assets/js/plug-in/pace.min.js"></script>
-<!--[if lt IE 9]>
-<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
-<![endif]-->
+
 <script>
 $(function(){
 
@@ -258,10 +249,10 @@ $(function(){
                     $.removeCookie('auth-token');
                     $.removeCookie('auth-pdu');
                     alert("授权成功");
-                    jump('/admin.html');
+                    jump('dashboard.html');
                 });
             } else {
-                jump('/admin.html');
+                jump('/dashboard.html');
             }
 
         }
@@ -282,7 +273,7 @@ $(function(){
     jq.form($signup_form, function(){return true}, function(data){
         console.log(data);
         if(data.code){
-            window.location.href = '/admin.html';
+            window.location.href = '/dashboard.html';
         }
     });
 
@@ -307,7 +298,7 @@ $(function(){
             $.removeCookie('auth-pdu');
             console.log(data);
             alert("授权成功");
-            jump('/admin.html');
+            jump('/dashboard.html');
         });
     }
 });

@@ -21,7 +21,7 @@ public class PduDetailHandler {
     public Pdu execute(String url) {
 
         Connection connection = Jsoup.connect(url);
-        connection.timeout(1000 * 60);
+        connection.timeout(1000 * 30);
         Pdu pdu = new Pdu();
         Document document = null;
         try {

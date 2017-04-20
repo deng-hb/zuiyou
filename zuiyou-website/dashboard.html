@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>最优投标</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="alternate icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="assets/css/amazeui.switch.css"/>
+    <link rel="stylesheet" href="assets/js/plug-in/dataTables/jquery.dataTables.min.css"/>
+    <link rel="stylesheet" href="assets/js/plug-in/dataTables/select.dataTables.min.css"/>
+    <style>
+    .footer p {
+      color: #7f8c8d;
+      margin: 0;
+      padding: 15px 0;
+      text-align: center;
+      background: #2d3e50;
+    }
+
+    </style>
+</head>
+<body>
+<header class="am-topbar am-topbar-fixed-top">
+    <div class="am-container">
+        <h1 class="am-topbar-brand">
+            <a href="/">最优投标</a>
+        </h1>
+
+        <div class="am-collapse am-topbar-collapse am-topbar-right" id="collapse-head">
+            <ul class="am-nav am-nav-pills am-topbar-nav">
+                <li class="am-dropdown" data-am-dropdown>
+                    <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+                        <span id="username"></span> <span class="am-icon-caret-down"></span>
+                    </a>
+                    <ul class="am-dropdown-content">
+                        <li class="am-dropdown-header">操作</li>
+                        <li><a href="#"><span class="am-icon-cog"></span> 修改密码</a></li>
+                        <li><a href="/"><span class="am-icon-power-off"></span> 安全退出</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+<br>
+<div class="am-container">
+
+    <div class="am-tabs am-margin" data-am-tabs><!-- tabs start -->
+        <ul class="am-tabs-nav am-nav am-nav-tabs">
+            <li class="am-active"><a href="#info">账户信息</a></li>
+            <li><a href="#rule">投标规则</a></li>
+        </ul>
+        <div class="am-tabs-bd">
+            <div class="am-tab-panel am-fade am-in am-active" id="info">
+                <div class="am-panel-group">
+                    <section class="am-panel am-panel-default">
+                        <div class="am-panel-hd">账户信息</div>
+                        <div class="am-panel-bd">
+                            <div class="am-g">
+
+                                <!-- PDU -->
+                                <div class="am-u-lg-4">
+                                    <div class="am-g ">
+                                        <div class="am-u-sm-6 am-text-right">绑定账户：</div>
+                                        <div class="am-u-sm-6" id="user-pdu">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 余额 -->
+                                <div class="am-u-lg-4">
+                                    <div class="am-g ">
+                                        <div class="am-u-sm-6 am-text-right">账户余额：</div>
+                                        <div class="am-u-sm-6" id="user-balance">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 状态 -->
+                                <div class="am-u-lg-4">
+                                    <div class="am-g ">
+                                        <div class="am-u-sm-6 am-text-right">投标状态：</div>
+                                        <div class="am-u-sm-6">
+                                            <input id="switch-state"  data-size="xs" type="checkbox" data-am-switch  data-off-text="关" data-on-text="开">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <section class="am-panel am-panel-default">
+                        <div class="am-panel am-panel-default">
+                            <div class="am-panel-hd am-cf">投标记录</div>
+                            <div class="am-in">
+                                <table id="data-table"
+                                       class="am-table am-table-bd am-table-bdrs am-table-striped am-table-hover"
+                                       style="width:100%">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>loanId</th>
+                                        <th>描述</th>
+                                        <th>更新时间</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="am-tabs-bd">
+            <div class="am-tab-panel am-fade am-in" id="rule">
+
+                <div class="am-panel am-panel-default">
+                    <div id="collapse-panel-rule" class="am-in">
+
+                        <form  class="am-form " method="post" data-am-validator>
+                            <div class="am-g am-margin-top">
+
+                                <!--  -->
+                                <div class="am-u-sm-2 am-text-right">
+                                    <label for="doc-ipt-3-a" class="am-form-label">单笔金额：</label>
+                                </div>
+                                <div class="am-u-sm-4">
+                                    <input id="doc-ipt-3-a" type="number" class=" am-input-sm"  placeholder="单笔金额" min="50" required />
+                                </div>
+                                <!--  -->
+                                <div class="am-u-sm-2 am-text-right">保留余额：</div>
+                                <div class="am-u-sm-4">
+                                    <input type="number" class=" am-input-sm"  placeholder="保留余额" required />
+                                </div>
+                            </div>
+
+                            <div class="am-g am-margin-top">
+                                <div class="am-u-sm-2 am-text-right">利率：</div>
+                                <div class="am-u-sm-4">
+                                    <div class="am-g">
+                                        <div class="am-u-sm-5">
+                                            <input type="number" class=" am-input-sm" placeholder="最少" required />
+                                        </div>
+                                        <div class="am-u-sm-2">
+                                            ～
+                                        </div>
+                                        <div class="am-u-sm-5">
+                                            <input type="number" class=" am-input-sm" placeholder="最大" required />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="am-u-sm-2 am-text-right">期限：</div>
+                                <div class="am-u-sm-4">
+                                    <div class="am-g">
+                                        <div class="am-u-sm-5">
+                                            <input type="number" class=" am-input-sm" placeholder="最少" required />
+                                        </div>
+                                        <div class="am-u-sm-2">
+                                            ～
+                                        </div>
+                                        <div class="am-u-sm-5">
+                                            <input type="number" class=" am-input-sm" placeholder="最大" required />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="am-g am-margin-top">
+
+                                <!-- 学历 -->
+                                <div class="am-u-sm-2 am-text-right">级别：</div>
+                                <div class="am-u-sm-4">
+                                    <select multiple data-am-selected="{btnWidth: '100%', btnSize: 'sm'}" required>
+                                        <option value="AAA" selected>AAA</option>
+                                        <option value="AA" selected>AA</option>
+                                        <option value="A" >A</option>
+                                        <option value="B" >B</option>
+                                        <option value="C" >C</option>
+                                        <option value="D" >D</option>
+                                        <option value="E" >E</option>
+                                        <option value="F" >F</option>
+                                    </select>
+                                </div>
+
+                                <!-- 性别 -->
+                                <div class="am-u-sm-2 am-text-right">性别：</div>
+                                <div class="am-u-sm-4">
+                                    <label class="am-checkbox-inline">
+                                        <input type="checkbox" value="1" data-am-ucheck checked name="sex" required> 男
+                                    </label>
+                                    <label class="am-checkbox-inline">
+                                        <input type="checkbox" value="0" data-am-ucheck checked name="sex"> 女
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="am-g am-margin-top">
+                                <!-- 学历 -->
+                                <div class="am-u-sm-2 am-text-right">学历：</div>
+
+                                <div class="am-u-sm-4">
+                                    <select multiple data-am-selected="{btnWidth: '100%', btnSize: 'sm'}" required>
+                                        <option value="无" selected>无</option>
+                                        <option value="高中" >高中</option>
+                                        <option value="大专" >大专</option>
+                                        <option value="本科" >本科</option>
+                                        <option value="研究生" >研究生</option>
+                                    </select>
+                                </div>
+                                <div class="am-u-sm-2 am-text-right">年龄：</div>
+                                <div class="am-u-sm-4">
+                                    <div class="am-g">
+                                        <div class="am-u-sm-5">
+                                            <input type="number" class=" am-input-sm" placeholder="最少" required />
+                                        </div>
+                                        <div class="am-u-sm-2">
+                                            ～
+                                        </div>
+                                        <div class="am-u-sm-5">
+                                            <input type="number" class=" am-input-sm" placeholder="最大" required />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="am-g am-margin-top">
+                                <div class="am-u-sm-2 am-text-right">借款金额：</div>
+                                <div class="am-u-sm-4">
+                                    <div class="am-g">
+                                        <div class="am-u-sm-5">
+                                            <input type="number" class=" am-input-sm" placeholder="最少" required />
+                                        </div>
+                                        <div class="am-u-sm-2">
+                                        ～
+                                        </div>
+                                        <div class="am-u-sm-5">
+                                            <input type="number" class=" am-input-sm" placeholder="最大" required />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="am-u-sm-2 am-text-right">待还金额：</div>
+                                <div class="am-u-sm-4">
+                                    <div class="am-g">
+                                        <div class="am-u-sm-5">
+                                            <input type="number" class=" am-input-sm" placeholder="最少" required />
+                                        </div>
+                                        <div class="am-u-sm-2">
+                                            ～
+                                        </div>
+                                        <div class="am-u-sm-5">
+                                            <input type="number" class=" am-input-sm" placeholder="最大" required />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="am-g am-margin-top">
+                                <div class="am-u-sm-2 am-text-right">&nbsp;</div>
+                                <div class="am-u-sm-4 am-text-left">
+                                    <botton class="am-btn am-btn-primary am-btn-lg" type="submit">保 存</botton>
+                                </div>
+                                <div class="am-u-sm-2"> </div>
+                                <div class="am-u-sm-4">
+                                </div>
+                            </div>
+
+                            <div class="am-g am-margin-top">
+                                <div class="am-u-sm-2 am-text-right"></div>
+                                <div class="am-u-sm-4">
+                                </div>
+                                <div class="am-u-sm-2 am-text-right"></div>
+                                <div class="am-u-sm-4">
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div><!-- tabs end -->
+
+
+</div>
+
+
+<footer class="footer">
+    <p>&copy; 2017 <a href="https://zuiyou.bid" target="_blank">最优投标</a>.</p>
+</footer>
+
+
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.form.min.js"></script>
+<script src="assets/js/amazeui.min.js"></script>
+<script src="assets/js/amazeui.switch.min.js"></script>
+<script src="assets/js/jq.utils.js"></script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/plug-in/dataTables/jquery.dataTables.min.js"></script>
+<script src="assets/js/plug-in/dataTables/dataTables.select.min.js"></script>
+<script src="assets/js/plug-in/dataTables/jq.table.utils.js"></script>
+
+<script>
+$(function() {
+    var $data_table = jq.table({
+        url:zuiyou.investHistoryList,
+        fields:["id","loanId","remarks","updatedTime"],
+        columnDefs: [ {
+            targets: 3,
+            createdCell: function (td, cellData, rowData, row, col) {
+                if(cellData)
+                    $(td).text(format(cellData));
+            }
+          }]
+        });
+	});
+
+function add0(m){return m<10?'0'+m:m }
+function format(shijianchuo)
+{
+    //shijianchuo是整数，否则要parseInt转换
+    var time = new Date(shijianchuo);
+    var y = time.getFullYear();
+    var m = time.getMonth()+1;
+    var d = time.getDate();
+    var h = time.getHours();
+    var mm = time.getMinutes();
+    var s = time.getSeconds();
+    return y+'-'+add0(m)+'-'+add0(d)+' '+add0(h)+':'+add0(mm)+':'+add0(s);
+}
+
+	jq.ajax(zuiyou.authInfo,{},function(res){
+        if(res.code){
+            var user = res.data;
+            $('#username').text(user.username);
+            $('#user-pdu').text(user.pdu);
+            $('#user-balance').text(user.balance);
+
+            $('#switch-state').bootstrapSwitch('state', user.isOpen);
+
+            var rule = res.data.rule;
+            console.log(rule);
+        }
+	});
+
+</script>
+</body>
+</html>

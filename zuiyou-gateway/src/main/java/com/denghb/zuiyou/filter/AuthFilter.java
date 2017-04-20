@@ -13,10 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import static com.denghb.zuiyou.common.Constants.Server.HOST;
 
 /**
  * Created by denghb on 2017/4/11.
@@ -47,13 +44,14 @@ public class AuthFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
+        String method = request.getMethod();
         // 所有请求必须加
         String client = request.getHeader("X-Client");
         // 请求路径
         String uri = request.getRequestURI();
         CurrentUser currentUser = WebUtils.getCurrentUser(request);
         String ipAddr = WebUtils.getIpAddr(request);
-        log.info("client:{},ip,{}uri:{},current:{}", client, ipAddr, uri, null == currentUser ? "nil" : currentUser.getUsername());
+        log.info("client:[{}],method:[{}],ip,[{}],uri:[{}],current:[{}]", client, method, ipAddr, uri, null == currentUser ? "nil" : currentUser.getUsername());
 
         if (null == client || 0 != client.indexOf("don't touch me")) {
             error(request, response);

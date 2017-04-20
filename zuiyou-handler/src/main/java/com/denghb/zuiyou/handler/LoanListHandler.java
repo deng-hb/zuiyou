@@ -40,7 +40,7 @@ public class LoanListHandler {
         String url = String.format(PPDAI_LOANLIST_URL, type, page);
 
         Connection connection = Jsoup.connect(url);
-        connection.timeout(1000 * 60);
+        connection.timeout(1000 * 30);
 
         Document document = null;
         try {
@@ -176,8 +176,8 @@ public class LoanListHandler {
 
         // 递归
         if (total >= 10 * ++page) {
+            log.info("execute type:{},page:{} ", type, page);
             try {
-                log.info("execute page " + page);
                 Thread.currentThread().sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();

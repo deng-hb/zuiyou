@@ -24,24 +24,29 @@ import java.util.Date;
 import java.util.List;
 
 @Component
-public class ScheduledTasks {
+public class ScheduledTasks2 {
 
-    private static final Logger log = LoggerFactory.getLogger(ScheduledTasks.class);
+    private static final Logger log = LoggerFactory.getLogger(ScheduledTasks2.class);
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
 
     static String PPDAI_USER_URL = "http://www.ppdai.com/user/%s";
 
-    public ScheduledTasks() {
+    public ScheduledTasks2() {
 
     }
 
-    // http://invest.ppdai.com/MiddleUser/index?user=ppd_sys_ddup18mu0044
-    @Scheduled(fixedRate = 5000)
-    public void run1() {
-        log.info("run1 time is now {}", dateFormat.format(new Date()));
-        run(8);
+    @Scheduled(fixedRate = 4000)
+    public void run2() {
+        log.info("run2 time is now {}", dateFormat.format(new Date()));
+        run(4);
+    }
+
+    @Scheduled(fixedRate = 3000)
+    public void run3() {
+        log.info("run3 time is now {}", dateFormat.format(new Date()));
+        run(5);
     }
 
     private void run(int type) {

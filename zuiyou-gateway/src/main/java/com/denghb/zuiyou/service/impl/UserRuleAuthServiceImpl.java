@@ -1,9 +1,11 @@
 package com.denghb.zuiyou.service.impl;
 
+import com.denghb.dbhelper.DbHelper;
+import com.denghb.zuiyou.domain.Rule;
 import com.denghb.zuiyou.domain.UserRuleAuth;
+import com.denghb.zuiyou.domain.vo.UserRuleAuthVo;
 import com.denghb.zuiyou.model.CurrentUser;
 import com.denghb.zuiyou.service.UserRuleAuthService;
-import com.denghb.dbhelper.DbHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,5 +37,17 @@ public class UserRuleAuthServiceImpl implements UserRuleAuthService {
             ura.setUserId(userId);
             db.insert(ura);
         }
+    }
+
+    @Override
+    public UserRuleAuthVo queryUserRuleAuthInfo(CurrentUser currentUser) {
+        UserRuleAuthVo vo = db.queryForObject("select * from user_rule_auth where user_id = ? ", UserRuleAuthVo.class, currentUser.getUserId());
+
+        if (null != vo) {
+            Rule rule = db.queryById(Rule.class, vo.getRuleId());
+            vo.setUsername(currentUser.getUsername());
+            vo.setRule(rule);
+        }
+        return vo;
     }
 }

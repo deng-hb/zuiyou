@@ -21,16 +21,19 @@ jq.form = function(select,pre,success){
             var res = pre();
         	if(res){
         		// TODO 进度条
-        	}else{
-            	return res;
+                $.AMUI.progress.start();
         	}
+            return res;
+
         },
-        success:function(data){
-			if(!jq.error(data)){
-				success(data);
+        success:function(res){
+            $.AMUI.progress.done();
+			if(!jq.error(res)){
+				success(res);
 			}
 		},
 		error:function(xhr, textStatus, errorThrown){
+		    $.AMUI.progress.done();
 			alert('服务器遇到错误，请稍候重试！');
 		}
     });
@@ -52,6 +55,7 @@ jq.ajax = function(url,params,success){
 	params._r = new Date().getTime();
 
     // TODO 进度条
+    $.AMUI.progress.start();
 
 	// ajax 执行
 	$.ajax({
@@ -61,25 +65,27 @@ jq.ajax = function(url,params,success){
 		dataType : 'json',
 		headers: {"X-Client": "don't touch me for website"},
         xhrFields: {withCredentials: true},
-		success: function(data){
-			if(!jq.error(data)){
-				success(data);
+		success: function(res){
+            $.AMUI.progress.done();
+			if(!jq.error(res)){
+				success(res);
 			}
 			
 		},
 		error: function(xhr, textStatus, errorThrown) {
+            $.AMUI.progress.done();
 			alert('服务器遇到错误，请稍候重试！');
 		}
 	});
 };
 
 // 错了返回true
-jq.error = function(data){
+jq.error = function(res){
 
 	// 2 超时、3 没有权限
-	if(2 == data.code || 3 == data.code){
-	    alert(data.msg);
-		window.location.href = data.data;
+	if(2 == res.code || 3 == res.code){
+	    alert(res.msg);
+		window.location.href = res.data;
 		return true;
 	}
 	return false;

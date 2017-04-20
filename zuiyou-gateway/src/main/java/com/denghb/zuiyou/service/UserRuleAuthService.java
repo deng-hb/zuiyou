@@ -1,6 +1,7 @@
 package com.denghb.zuiyou.service;
 
 
+import com.denghb.zuiyou.domain.vo.UserRuleAuthVo;
 import com.denghb.zuiyou.model.CurrentUser;
 
 /**
@@ -17,4 +18,12 @@ public interface UserRuleAuthService {
      * @param token
      */
     void bind(CurrentUser currentUser, String pdu, String token);
+
+    /**
+     * 获取用户绑定信息
+     *
+     * @param currentUser
+     * @return
+     */
+    UserRuleAuthVo queryUserRuleAuthInfo(CurrentUser currentUser);
 }
