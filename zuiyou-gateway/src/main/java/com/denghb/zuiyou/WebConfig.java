@@ -1,6 +1,6 @@
 package com.denghb.zuiyou;
 
-import com.denghb.zuiyou.constant.Constants;
+import com.denghb.zuiyou.common.Constants;
 import com.denghb.zuiyou.filter.AuthFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +17,7 @@ public class WebConfig {
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
         filterRegistrationBean.setFilter(new AuthFilter());
         filterRegistrationBean.addUrlPatterns("/*");
-        filterRegistrationBean.addInitParameter(Constants.Web.KEY_EXCLUSIONS, "/,/favicon.ico,/pdu/receive,/loan/receive,/user/signin,/user/signup,/rule/list,/invest/history/create,/cmd");
+        // filterRegistrationBean.addInitParameter(Constants.Web.KEY_EXCLUSIONS, "/,/favicon.ico,/user/signin");
         return filterRegistrationBean;
     }
 

@@ -15,6 +15,7 @@ window.jq = {};
 jq.form = function(select,pre,success){
 	select.ajaxForm({
 		dataType:'json',
+		headers: {'accept-client':"don't touch me for website"},
         xhrFields: {withCredentials: true},
         beforeSubmit:function(formData, jqForm, options){
             var res = pre();
@@ -58,6 +59,7 @@ jq.ajax = function(url,params,success){
 		url: url,
 		data: params,
 		dataType : 'json',
+		headers: {'accept-client':"don't touch me for website"},
         xhrFields: {withCredentials: true},
 		success: function(data){
 			if(!jq.error(data)){

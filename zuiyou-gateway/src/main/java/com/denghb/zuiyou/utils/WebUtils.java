@@ -1,7 +1,7 @@
 package com.denghb.zuiyou.utils;
 
 
-import com.denghb.zuiyou.constant.Constants;
+import com.denghb.zuiyou.common.Constants;
 import com.denghb.zuiyou.model.CurrentUser;
 
 import javax.servlet.http.HttpServletRequest;

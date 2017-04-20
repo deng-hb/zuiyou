@@ -159,6 +159,7 @@ public class HttpUtils {
         connection.setRequestProperty("User-Agent", "com.denghb.httputils");
         connection.setRequestProperty("Charset", "UTF-8");
         connection.setRequestProperty("Content-type", "application/json");
+        connection.setRequestProperty("accept-client", "don't touch me for handler");
 
         if (connection instanceof HttpsURLConnection) {
             ((HttpsURLConnection) connection).setSSLSocketFactory(getTrustAllSSLSocketFactory());

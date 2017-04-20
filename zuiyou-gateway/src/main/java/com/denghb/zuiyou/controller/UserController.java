@@ -1,6 +1,6 @@
 package com.denghb.zuiyou.controller;
 
-import com.denghb.zuiyou.constant.Constants;
+import com.denghb.zuiyou.common.Constants;
 import com.denghb.zuiyou.domain.User;
 import com.denghb.zuiyou.model.CurrentUser;
 import com.denghb.zuiyou.model.JsonModel;

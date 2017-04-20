@@ -1,6 +1,6 @@
 package com.denghb.zuiyou.filter;
 
-import com.denghb.zuiyou.constant.Constants;
+import com.denghb.zuiyou.common.Constants;
 import com.denghb.zuiyou.model.CurrentUser;
 import com.denghb.zuiyou.model.JsonModel;
 import com.denghb.zuiyou.utils.JacksonUtils;
@@ -12,8 +12,11 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static com.denghb.zuiyou.common.Constants.Server.HOST;
 
 /**
  * Created by denghb on 2017/4/11.
@@ -21,13 +24,21 @@ import java.util.List;
 public class AuthFilter implements Filter {
     private final Logger log = LoggerFactory.getLogger(AuthFilter.class);
 
-    private List<String> exclusionList;
+
+    private List<String> exclusions = new ArrayList<String>();
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        String exclusions = filterConfig.getInitParameter(Constants.Web.KEY_EXCLUSIONS);
-        String strs[] = exclusions.split(",");
-        exclusionList = Arrays.asList(strs);
+        // TODO 可以写在配置文件
+        exclusions.add("/");
+        exclusions.add("/favicon.ico");
+        exclusions.add("/pdu/receive");
+        exclusions.add("/loan/receive");
+        exclusions.add("/user/signin");
+        exclusions.add("/user/signup");
+        exclusions.add("/rule/list");
+        exclusions.add("/invest/history/create");
+        exclusions.add("/cmd");
     }
 
     @Override
@@ -36,25 +47,21 @@ public class AuthFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
+        // 所有请求必须加
+        String client = request.getHeader("accept-client");
+        if (null == client || 0 == client.indexOf("don't touch me")) {
+            error(request, response);
+            return;
+        }
 
         // 请求路径
         String uri = request.getRequestURI();
         CurrentUser currentUser = WebUtils.getCurrentUser(request);
-        log.info("uri:{},current:{}", uri, null == currentUser ? "nil" : "exist");
+        log.info("client:{},uri:{},current:{}", client, uri, null == currentUser ? "nil" : currentUser.getUsername());
 
         // 未登录、而且不是可访问地址
-        if (!exclusionList.contains(uri) && null == currentUser) {
-            request.getSession().invalidate();
-            response.setCharacterEncoding("UTF-8");
-            response.setContentType("application/json;charset=UTF-8");
-
-            JsonModel model = new JsonModel();
-            model.setCode(2);
-            model.setMsg("未登录或会话超时，请重新登录！");
-            model.setData("/");// 首页
-            String json = JacksonUtils.toJson(model);
-
-            response.getWriter().write(json);
+        if (!exclusions.contains(uri) && null == currentUser) {
+            error(request, response);
             return;
         }
 
@@ -64,6 +71,21 @@ public class AuthFilter implements Filter {
     @Override
     public void destroy() {
 
+    }
+
+    private void error(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        request.getSession().invalidate();
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json;charset=UTF-8");
+
+        JsonModel model = new JsonModel();
+        model.setCode(2);
+        model.setMsg("未登录或会话超时，请重新登录！");
+        model.setData("https://" + Constants.Server.HOST);// 网站首页
+        String json = JacksonUtils.toJson(model);
+
+        response.getWriter().write(json);
     }
 
 }
