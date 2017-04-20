@@ -36,6 +36,10 @@ public class HttpUtils {
             if (null == in) {
                 in = connection.getErrorStream();
             }
+            if(502 == connection.getResponseCode()){
+                // TODO  数据保存到本地
+            }
+
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             String str = null;
             StringBuffer buffer = new StringBuffer();
@@ -159,7 +163,7 @@ public class HttpUtils {
         connection.setRequestProperty("User-Agent", "com.denghb.httputils");
         connection.setRequestProperty("Charset", "UTF-8");
         connection.setRequestProperty("Content-type", "application/json");
-        connection.setRequestProperty("accept-client", "don't touch me for handler");
+        connection.setRequestProperty("X-Client", "don't touch me for handler");
 
         if (connection instanceof HttpsURLConnection) {
             ((HttpsURLConnection) connection).setSSLSocketFactory(getTrustAllSSLSocketFactory());

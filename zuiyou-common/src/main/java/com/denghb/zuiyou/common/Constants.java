@@ -7,33 +7,34 @@ public class Constants {
 
     public static class Server {
 
-
         public static final String HOST = "zuiyou.bid";
-
         public static final int PORT = 1235;
+        public static final String GATEWAY_HOST = "gateway.zuiyou.bid";
+        public static final String PROTOCOL = "https://";
 
         /**
          * 获取投标规则
          */
-        public static final String RULE_LIST_URL = "https://gateway." + Constants.Server.HOST + "/rule/list";
+        public static final String RULE_LIST_URL = PROTOCOL + GATEWAY_HOST + "/rule/list";
 
         /**
          * 创建投标记录
          */
-        public static final String INVEST_HISTORY_CREATE_URL = "https://gateway." + Constants.Server.HOST + "/invest/history/create";
+        public static final String INVEST_HISTORY_CREATE_URL = PROTOCOL + GATEWAY_HOST + "/invest/history/create";
 
         /**
          * 借款标的
          */
-        public static final String LOAN_RECEIVE_URL = "https://gateway." + Constants.Server.HOST + "/loan/receive";
+        public static final String LOAN_RECEIVE_URL = PROTOCOL + GATEWAY_HOST + "/loan/receive";
 
         /**
          * PDU信息
          */
-        public static final String PDU_RECEIVE = "https://gateway." + Constants.Server.HOST + "/pdu/receive";
+        public static final String PDU_RECEIVE = PROTOCOL + GATEWAY_HOST + "/pdu/receive";
     }
 
     public static class Web {
+
         public static final String CURRENT_USER = "CURRENT_USER";
 
     }

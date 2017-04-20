@@ -48,17 +48,17 @@ public class AuthFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         // 所有请求必须加
-        String client = request.getHeader("accept-client");
-        if (null == client || 0 == client.indexOf("don't touch me")) {
-            error(request, response);
-            return;
-        }
-
+        String client = request.getHeader("X-Client");
         // 请求路径
         String uri = request.getRequestURI();
         CurrentUser currentUser = WebUtils.getCurrentUser(request);
-        log.info("client:{},uri:{},current:{}", client, uri, null == currentUser ? "nil" : currentUser.getUsername());
+        String ipAddr = WebUtils.getIpAddr(request);
+        log.info("client:{},ip,{}uri:{},current:{}", client, ipAddr, uri, null == currentUser ? "nil" : currentUser.getUsername());
 
+        if (null == client || 0 != client.indexOf("don't touch me")) {
+            error(request, response);
+            return;
+        }
         // 未登录、而且不是可访问地址
         if (!exclusions.contains(uri) && null == currentUser) {
             error(request, response);

@@ -1,12 +1,13 @@
 package com.denghb.zuiyou.task;
 
-import com.denghb.slf4j2elk.utils.HttpUtils;
+
 import com.denghb.zuiyou.common.Constants;
 import com.denghb.zuiyou.domain.Loan;
 import com.denghb.zuiyou.domain.Pdu;
 import com.denghb.zuiyou.handler.InvestHandler;
 import com.denghb.zuiyou.handler.LoanListHandler;
 import com.denghb.zuiyou.handler.PduDetailHandler;
+import com.denghb.zuiyou.utils.HttpUtils;
 import com.denghb.zuiyou.utils.JacksonUtils;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
