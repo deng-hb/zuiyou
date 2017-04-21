@@ -37,5 +37,26 @@ public class Constants {
 
         public static final String CURRENT_USER = "CURRENT_USER";
 
+
+        /**
+         * 会话状态检查
+         */
+        public static final String URL_SESSION = "/session";
+
+    }
+
+    /**
+     * 指令
+     */
+    public static class Command {
+        /**
+         * 系统退出
+         */
+        public static final String SYSTEM_EXIT = "SYSTEM_EXIT";
+
+        /**
+         * 更新规则
+         */
+        public static final String UPDATE_RULE = "UPDATE_RULE";
     }
 }

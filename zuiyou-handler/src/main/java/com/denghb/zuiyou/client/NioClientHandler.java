@@ -1,5 +1,6 @@
 package com.denghb.zuiyou.client;
 
+import com.denghb.zuiyou.common.Constants;
 import com.denghb.zuiyou.data.RuleVoData;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -20,9 +21,7 @@ public class NioClientHandler extends SimpleChannelInboundHandler<String> {
             throws Exception {
         logger.info("client----->收到服务器端消息：{}", cmd);
 
-        if (cmd.equals("u")) {
-            RuleVoData.pull();
-        }
+        execute(cmd);
     }
 
     @Override
@@ -41,4 +40,22 @@ public class NioClientHandler extends SimpleChannelInboundHandler<String> {
         }
     }
 
+
+    /**
+     * 执行指令
+     *
+     * @param cmd
+     */
+    private void execute(String cmd) {
+
+        switch (cmd) {
+            case Constants.Command.UPDATE_RULE:
+                RuleVoData.pull();
+                break;
+
+            case Constants.Command.SYSTEM_EXIT:
+                System.exit(1);
+                break;
+        }
+    }
 }

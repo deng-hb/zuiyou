@@ -26,4 +26,18 @@ public interface UserRuleAuthService {
      * @return
      */
     UserRuleAuthVo queryUserRuleAuthInfo(CurrentUser currentUser);
+
+
+    /**
+     * 开启投标
+     *
+     * @param currentUser
+     */
+    void open(CurrentUser currentUser);
+    /**
+     * 关闭投标
+     *
+     * @param currentUser
+     */
+    void close(CurrentUser currentUser);
 }

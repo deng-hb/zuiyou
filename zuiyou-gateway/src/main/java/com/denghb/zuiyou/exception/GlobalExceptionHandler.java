@@ -10,12 +10,21 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(value = JsonException.class)
+    @ExceptionHandler(value = Exception.class)
     @ResponseBody
-    public JsonModel jsonErrorHandler(HttpServletRequest req, JsonException e) throws Exception {
+    public JsonModel errorHandler(HttpServletRequest req, Exception e) {
         JsonModel json = new JsonModel();
         json.setMsg(e.getMessage());
-        json.setCode(-1);
+        json.setCode(0);
+        return json;
+    }
+
+    @ExceptionHandler(value = ZuiyouException.class)
+    @ResponseBody
+    public JsonModel jsonErrorHandler(HttpServletRequest req, ZuiyouException e) {
+        JsonModel json = new JsonModel();
+        json.setMsg(e.getMessage());
+        json.setCode(0);
         return json;
     }
 }

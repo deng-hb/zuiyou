@@ -17,7 +17,7 @@ public interface UserService {
     User signin(String username, String password);
 
     /**
-     * 注册
+     * 注册并初始化信息
      *
      * @param email
      * @param password

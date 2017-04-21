@@ -78,10 +78,10 @@ public class NioServer {
 
     public static void sendCommand(String cmd) {
         if (channelList.isEmpty()) {
-            log.error("client empty");
+            log.error("client empty send:{}", cmd);
             return;
         }
-        log.info("client size:{} write :{}", channelList.size(), cmd);
+        log.info("client size:{} send:{}", channelList.size(), cmd);
         for (Channel channel : channelList) {
             if (null == channel || !channel.isActive()) {
                 channelList.remove(channel);

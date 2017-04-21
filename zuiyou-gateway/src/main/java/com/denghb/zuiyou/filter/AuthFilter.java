@@ -57,9 +57,16 @@ public class AuthFilter implements Filter {
             error(request, response);
             return;
         }
+
         // 未登录、而且不是可访问地址
         if (!exclusions.contains(uri) && null == currentUser) {
             error(request, response);
+            return;
+        }
+
+        // 会话状态检测
+        if (uri.equals(Constants.Web.URL_SESSION) && null != currentUser) {
+            session(request, response);
             return;
         }
 
@@ -81,6 +88,20 @@ public class AuthFilter implements Filter {
         model.setCode(2);
         model.setMsg("未登录或会话超时，请重新登录！");
         model.setData("https://" + Constants.Server.HOST);// 网站首页
+        String json = JacksonUtils.toJson(model);
+
+        response.getWriter().write(json);
+    }
+
+
+    private void session(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json;charset=UTF-8");
+
+        JsonModel model = new JsonModel();
+        model.setCode(1);
+        model.setMsg("success");
         String json = JacksonUtils.toJson(model);
 
         response.getWriter().write(json);

@@ -34,7 +34,7 @@ public class UserAuthController {
     public JsonModel bind(HttpServletRequest request) {
         JsonModel json = new JsonModel();
         try {
-            String pdu  = request.getParameter("pdu");
+            String pdu = request.getParameter("pdu");
             String token = request.getParameter("token");
             CurrentUser currentUser = WebUtils.getCurrentUser(request);
             userRuleAuthService.bind(currentUser, pdu, token);
@@ -49,7 +49,7 @@ public class UserAuthController {
     }
 
     @RequestMapping("/info")
-    public JsonModel info(HttpServletRequest request){
+    public JsonModel info(HttpServletRequest request) {
 
         JsonModel json = new JsonModel();
         try {
@@ -64,4 +64,42 @@ public class UserAuthController {
         }
         return json;
     }
+
+
+    @RequestMapping("/open")
+    public JsonModel open(HttpServletRequest request) {
+
+        JsonModel json = new JsonModel();
+        try {
+            CurrentUser currentUser = WebUtils.getCurrentUser(request);
+            userRuleAuthService.open(currentUser);
+            json.setCode(1);
+            json.setMsg("操作成功");
+        } catch (Exception e) {
+            log.warn(e.getMessage(), e);
+            json.setCode(0);
+            json.setMsg("操作失败");
+        }
+        return json;
+    }
+
+    @RequestMapping("/close")
+    public JsonModel close(HttpServletRequest request) {
+
+        JsonModel json = new JsonModel();
+        try {
+            CurrentUser currentUser = WebUtils.getCurrentUser(request);
+            userRuleAuthService.close(currentUser);
+            json.setCode(1);
+            json.setMsg("操作成功");
+        } catch (Exception e) {
+            log.warn(e.getMessage(), e);
+            json.setCode(0);
+            json.setMsg("操作失败");
+        }
+        return json;
+    }
+
+
+
 }

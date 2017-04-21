@@ -1,10 +1,12 @@
 package com.denghb.zuiyou.service.impl;
 
 import com.denghb.dbhelper.DbHelper;
+import com.denghb.zuiyou.common.Constants;
 import com.denghb.zuiyou.domain.Rule;
 import com.denghb.zuiyou.domain.UserRuleAuth;
 import com.denghb.zuiyou.domain.vo.UserRuleAuthVo;
 import com.denghb.zuiyou.model.CurrentUser;
+import com.denghb.zuiyou.server.NioServer;
 import com.denghb.zuiyou.service.UserRuleAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +26,7 @@ public class UserRuleAuthServiceImpl implements UserRuleAuthService {
     public void bind(CurrentUser currentUser, String pdu, String token) {
         long userId = currentUser.getUserId();
         // is_open = 1 表示启用
-        UserRuleAuth ura = db.queryForObject("select * from user_rule_auth where user_id = ? and pdu = ? ", UserRuleAuth.class, userId, pdu);
+        UserRuleAuth ura = db.queryForObject("select * from user_rule_auth where user_id = ? and pdu = ? limit 1", UserRuleAuth.class, userId, pdu);
         if (null != ura) {
             // 更新
             ura.setToken(token);
@@ -41,7 +43,7 @@ public class UserRuleAuthServiceImpl implements UserRuleAuthService {
 
     @Override
     public UserRuleAuthVo queryUserRuleAuthInfo(CurrentUser currentUser) {
-        UserRuleAuthVo vo = db.queryForObject("select * from user_rule_auth where user_id = ? ", UserRuleAuthVo.class, currentUser.getUserId());
+        UserRuleAuthVo vo = db.queryForObject("select * from user_rule_auth where user_id = ? limit 1", UserRuleAuthVo.class, currentUser.getUserId());
 
         if (null != vo) {
             Rule rule = db.queryById(Rule.class, vo.getRuleId());
@@ -49,5 +51,28 @@ public class UserRuleAuthServiceImpl implements UserRuleAuthService {
             vo.setRule(rule);
         }
         return vo;
+    }
+
+
+
+
+    @Override
+    public void open(CurrentUser currentUser) {
+        long userId = currentUser.getUserId();
+        UserRuleAuth ura = db.queryForObject("select * from user_rule_auth where user_id = ? limit 1 ", UserRuleAuth.class, userId);
+        ura.setIsOpen(true);
+        db.updateById(ura);
+
+        NioServer.sendCommand(Constants.Command.UPDATE_RULE);
+    }
+
+    @Override
+    public void close(CurrentUser currentUser) {
+        long userId = currentUser.getUserId();
+        UserRuleAuth ura = db.queryForObject("select * from user_rule_auth where user_id = ? limit 1 ", UserRuleAuth.class, userId);
+        ura.setIsOpen(false);
+        db.updateById(ura);
+
+        NioServer.sendCommand(Constants.Command.UPDATE_RULE);
     }
 }

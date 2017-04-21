@@ -1,13 +1,11 @@
 package com.denghb.zuiyou.service.impl;
 
+import com.denghb.dbhelper.DbHelper;
 import com.denghb.zuiyou.domain.Loan;
 import com.denghb.zuiyou.service.LoanService;
-
-import com.denghb.dbhelper.DbHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,12 +28,7 @@ public class LoanServiceImpl implements LoanService {
         if (null == loan || null == loan.getId()) {
             return;
         }
-        try {
-            db.insert(loan);
-        } catch (DataIntegrityViolationException e) {
-            System.out.println(loan.getId() + " exist");
-        }
-
+        db.insert(loan);
     }
 
     @Override

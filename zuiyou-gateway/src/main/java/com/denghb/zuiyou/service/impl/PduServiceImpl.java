@@ -1,12 +1,11 @@
 package com.denghb.zuiyou.service.impl;
 
+import com.denghb.dbhelper.DbHelper;
 import com.denghb.zuiyou.domain.Pdu;
 import com.denghb.zuiyou.service.PduService;
-import com.denghb.dbhelper.DbHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,14 +23,10 @@ public class PduServiceImpl implements PduService {
     @Override
     @Transactional
     public void create(Pdu pdu) {
-        if(null == pdu || null == pdu.getPdu()){
+        if (null == pdu || null == pdu.getPdu()) {
             return;
         }
-        try {
-            db.insert(pdu);
-        } catch (DataIntegrityViolationException e) {
-            System.out.println(pdu.getPdu() + " exist");
-        }
+        db.insert(pdu);
     }
 
     @Override
