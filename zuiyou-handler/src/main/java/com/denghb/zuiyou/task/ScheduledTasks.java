@@ -22,14 +22,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Component
 public class ScheduledTasks {
 
     private static final Logger log = LoggerFactory.getLogger(ScheduledTasks.class);
 
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-
+    private ExecutorService executorService = Executors.newFixedThreadPool(2);
 
     static String PPDAI_USER_URL = "http://www.ppdai.com/user/%s";
 
@@ -40,49 +41,48 @@ public class ScheduledTasks {
     // http://invest.ppdai.com/MiddleUser/index?user=ppd_sys_ddup18mu0044
     @Scheduled(fixedRate = 5000)
     public void run1() {
-        log.info("run1 time is now {}", dateFormat.format(new Date()));
         run(8);
     }
 
 
     @Scheduled(fixedRate = 4000)
     public void run2() {
-        log.info("run2 time is now {}", dateFormat.format(new Date()));
         run(4);
     }
 
     @Scheduled(fixedRate = 3000)
     public void run3() {
-        log.info("run3 time is now {}", dateFormat.format(new Date()));
         run(5);
     }
 
     private void run(int type) {
 
-
         LoanListHandler loanListHandler = new LoanListHandler(type);
-        List<Loan> list = loanListHandler.getList();
+        loanListHandler.setCallback(new LoanListHandler.LoanListHandlerCallback() {
+            @Override
+            public void list(List<Loan> list) {
+                List<Pdu> list2 = new ArrayList<>();
+                for (Loan loan : list) {
+                    if (null == loan || null == loan.getId()) {
+                        continue;
+                    }
 
-        List<Pdu> list2 = new ArrayList<>();
-        for (Loan loan : list) {
-            if (null == loan || null == loan.getId()) {
-                continue;
+                    Pdu pdu = new PduDetailHandler().execute(loan.getUrl());
+                    list2.add(pdu);
+
+                    // 筛选并投标并记录
+                    new InvestHandler(loan, pdu);
+                }
+
+                // TODO 异步？
+                String json1 = JacksonUtils.toJson(list);
+                HttpUtils.send(Constants.Server.LOAN_RECEIVE_URL, json1);
+
+                String json2 = JacksonUtils.toJson(list2);
+                HttpUtils.send(Constants.Server.PDU_RECEIVE, json2);
             }
-
-            Pdu pdu = new PduDetailHandler().execute(loan.getUrl());
-            list2.add(pdu);
-
-            // 筛选并投标并记录
-            new InvestHandler(loan, pdu);
-        }
-
-        // TODO 异步？
-        String json1 = JacksonUtils.toJson(list);
-        HttpUtils.send(Constants.Server.LOAN_RECEIVE_URL, json1);
-
-        String json2 = JacksonUtils.toJson(list2);
-        HttpUtils.send(Constants.Server.PDU_RECEIVE, json2);
-
+        });
+        executorService.submit(loanListHandler);
 
     }
 

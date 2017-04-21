@@ -17,7 +17,11 @@ import java.util.List;
 /**
  * Created by denghb on 2017/4/6.
  */
-public class LoanListHandler {
+public class LoanListHandler implements Runnable {
+
+    public interface  LoanListHandlerCallback {
+        void list(List<Loan> list);
+    }
 
     private Logger log = LoggerFactory.getLogger(LoanListHandler.class);
 
@@ -25,7 +29,7 @@ public class LoanListHandler {
 
     private static final String PDU_KEY = "/user/";
     private static final String LOAN_KEY = "id=";
-    private List<Loan> list = new ArrayList<Loan>();
+    private LoanListHandlerCallback callback;
 
     private int type;
     private int total = 0;
@@ -33,10 +37,18 @@ public class LoanListHandler {
 
     public LoanListHandler(int type) {
         this.type = type;
+    }
+
+    @Override
+    public void run() {
         execute();
     }
 
     private void execute() {
+        log.info("execute type:{},page:{} ", type, page);
+
+        List<Loan> list = new ArrayList<Loan>();
+
         String url = String.format(PPDAI_LOANLIST_URL, type, page);
 
         Connection connection = Jsoup.connect(url);
@@ -174,9 +186,11 @@ public class LoanListHandler {
             }
         }
 
+        if (null != callback){
+            callback.list(list);
+        }
         // 递归
         if (total >= 10 * ++page) {
-            log.info("execute type:{},page:{} ", type, page);
             try {
                 Thread.currentThread().sleep(2000);
             } catch (InterruptedException e) {
@@ -187,11 +201,11 @@ public class LoanListHandler {
 
     }
 
-    public List<Loan> getList() {
-        return list;
+    public LoanListHandlerCallback getCallback() {
+        return callback;
     }
 
-    public int getTotal() {
-        return total;
+    public void setCallback(LoanListHandlerCallback callback) {
+        this.callback = callback;
     }
 }

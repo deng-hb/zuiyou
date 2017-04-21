@@ -79,7 +79,7 @@ public class NioClient {
     }
 
     // 重连
-    @Scheduled(fixedRate = 3000)
+    @Scheduled(fixedRate = 5000)
     public void reconnect() {
         log.info("Checking connect to server ...");
         if (channel != null && channel.isActive()) {
