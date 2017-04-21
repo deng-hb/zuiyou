@@ -6,6 +6,7 @@ import com.denghb.zuiyou.service.PduService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,7 +27,11 @@ public class PduServiceImpl implements PduService {
         if (null == pdu || null == pdu.getPdu()) {
             return;
         }
-        db.insert(pdu);
+        try {
+            db.insert(pdu);
+        } catch (DataIntegrityViolationException e) {
+            log.warn("pdu:[{}] exist", pdu.getPdu());
+        }
     }
 
     @Override
