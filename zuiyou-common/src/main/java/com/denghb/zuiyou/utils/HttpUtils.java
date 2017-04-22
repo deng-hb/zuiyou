@@ -55,7 +55,7 @@ public class HttpUtils {
             resp = buffer.toString();
 
         } catch (Exception e) {
-            log.error(url + e.getMessage(), e);
+            log.error(url + "\n" + e.getMessage(), e);
         } finally {
             connection.disconnect();//使用完关闭TCP连接，释放资源
         }
@@ -94,7 +94,7 @@ public class HttpUtils {
 
 
         } catch (Exception e) {
-            log.error(url + e.getMessage(), e);
+            log.error(url + "\n" + e.getMessage(), e);
         } finally {
             connection.disconnect();//使用完关闭TCP连接，释放资源
             return resp;
@@ -140,7 +140,7 @@ public class HttpUtils {
             resp = buffer.toString();
 
         } catch (Exception e) {
-            log.error(url + e.getMessage(), e);
+            log.error(url + "\n" + e.getMessage(), e);
         } finally {
             connection.disconnect();//使用完关闭TCP连接，释放资源
         }

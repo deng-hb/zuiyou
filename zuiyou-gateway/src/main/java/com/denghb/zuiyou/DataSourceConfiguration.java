@@ -24,7 +24,7 @@ import java.sql.SQLException;
 @EnableTransactionManagement
 public class DataSourceConfiguration {
 
-    @Value("${spring.datasource.druid.driverClassName}") String driver;
+    @Value("${spring.datasource.druid.driver-class-name}") String driver;
     @Value("${spring.datasource.druid.url}") String url;
     @Value("${spring.datasource.druid.username}") String username;
     @Value("${spring.datasource.druid.password}") String password;
