@@ -17,7 +17,7 @@ CREATE TABLE `user_rule_auth` (
   `is_open` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0:关闭，1:开启',
   `balance` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '用户余额',
   `status` int(11) NOT NULL DEFAULT '0' COMMENT '0:授权失败,1:授权成功',
-  `token` varchar(100) NOT NULL DEFAULT '',
+  `token` text NOT NULL COMMENT 'cookie',
   `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '插入时间',
   `updated_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `deleted` tinyint(4) NOT NULL DEFAULT '0' COMMENT '逻辑删除',
@@ -29,7 +29,7 @@ CREATE TABLE `user_rule_auth` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8
  <pre>
  * @author DbHelper
- * @generateTime Sat Apr 22 23:35:45 CST 2017
+ * @generateTime Sun Apr 23 00:45:30 CST 2017
  */
 @Table(name="user_rule_auth",database="crazy_invest")
 public class UserRuleAuth implements java.io.Serializable {
@@ -64,7 +64,7 @@ public class UserRuleAuth implements java.io.Serializable {
 	@Column(name="status")
 	private Integer status;
 	
-	/**  */
+	/** cookie */
 	@Column(name="token")
 	private String token;
 	
