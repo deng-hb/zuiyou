@@ -1,5 +1,8 @@
 package com.denghb.zuiyou.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.net.ssl.*;
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -12,14 +15,14 @@ import java.util.Map;
  */
 public class HttpUtils {
 
+    private static final Logger log = LoggerFactory.getLogger(HttpUtils.class);
+
     /**
-     * 加签验签
-     *
      * @param url
      * @param body
-     * @return
      */
-    public static void send(String url, String body) {
+    public static String send(String url, String body) {
+        String resp = null;
         HttpURLConnection connection = null;
         try {
             connection = getHttpConnection(url);
@@ -36,7 +39,7 @@ public class HttpUtils {
             if (null == in) {
                 in = connection.getErrorStream();
             }
-            if(502 == connection.getResponseCode()){
+            if (502 == connection.getResponseCode()) {
                 // TODO  数据保存到本地
             }
 
@@ -46,21 +49,22 @@ public class HttpUtils {
             while ((str = br.readLine()) != null) {//BufferedReader特有功能，一次读取一行数据
                 buffer.append(str);
             }
-            // System.out.println(buffer);
+
             in.close();
             br.close();
-
+            resp = buffer.toString();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(url + e.getMessage(), e);
         } finally {
             connection.disconnect();//使用完关闭TCP连接，释放资源
         }
+        return resp;
     }
 
     /**
      * @param url
-     * @return
+     * @return body
      */
     public static String get(String url) {
         String resp = null;
@@ -90,13 +94,18 @@ public class HttpUtils {
 
 
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(url + e.getMessage(), e);
         } finally {
             connection.disconnect();//使用完关闭TCP连接，释放资源
             return resp;
         }
     }
 
+    /**
+     * @param url
+     * @param param
+     * @return body
+     */
     public static String post(String url, Map<String, String> param) {
         String resp = null;
         HttpURLConnection connection = null;
@@ -131,7 +140,7 @@ public class HttpUtils {
             resp = buffer.toString();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(url + e.getMessage(), e);
         } finally {
             connection.disconnect();//使用完关闭TCP连接，释放资源
         }
@@ -160,7 +169,7 @@ public class HttpUtils {
         connection.setRequestMethod("POST");//设置请求的方式
         // 请求头
         connection.setRequestProperty("Connection", "Keep-Alive");
-        connection.setRequestProperty("User-Agent", "com.denghb.httputils");
+        connection.setRequestProperty("User-Agent", "com.denghb.zuiyou");
         connection.setRequestProperty("Charset", "UTF-8");
         connection.setRequestProperty("Content-type", "application/json");
         connection.setRequestProperty("X-Client", "don't touch me for handler");

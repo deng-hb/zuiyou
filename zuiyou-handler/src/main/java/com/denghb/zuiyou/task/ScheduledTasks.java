@@ -18,9 +18,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -31,6 +29,7 @@ public class ScheduledTasks {
     private static final Logger log = LoggerFactory.getLogger(ScheduledTasks.class);
 
     private ExecutorService executorService = Executors.newFixedThreadPool(2);
+    private ExecutorService executorService2 = Executors.newFixedThreadPool(2);
 
     static String PPDAI_USER_URL = "http://www.ppdai.com/user/%s";
 
@@ -41,7 +40,15 @@ public class ScheduledTasks {
     // http://invest.ppdai.com/MiddleUser/index?user=ppd_sys_ddup18mu0044
     @Scheduled(fixedRate = 5000)
     public void run1() {
-        run(8);
+
+        LoanListHandler loanListHandler = new LoanListHandler(8);
+        loanListHandler.setCallback(new LoanListHandler.LoanListHandlerCallback() {
+            @Override
+            public void list(List<Loan> list) {
+                handler(list);
+            }
+        });
+        executorService.submit(loanListHandler);
     }
 
 
@@ -61,29 +68,33 @@ public class ScheduledTasks {
         loanListHandler.setCallback(new LoanListHandler.LoanListHandlerCallback() {
             @Override
             public void list(List<Loan> list) {
-                List<Pdu> list2 = new ArrayList<>();
-                for (Loan loan : list) {
-                    if (null == loan || null == loan.getId()) {
-                        continue;
-                    }
-
-                    Pdu pdu = new PduDetailHandler().execute(loan.getUrl());
-                    list2.add(pdu);
-
-                    // 筛选并投标并记录
-                    new InvestHandler(loan, pdu);
-                }
-
-                // TODO 异步？
-                String json1 = JacksonUtils.toJson(list);
-                HttpUtils.send(Constants.Server.LOAN_RECEIVE_URL, json1);
-
-                String json2 = JacksonUtils.toJson(list2);
-                HttpUtils.send(Constants.Server.PDU_RECEIVE, json2);
+                handler(list);
             }
         });
-        executorService.submit(loanListHandler);
+        executorService2.submit(loanListHandler);
 
+    }
+
+    public void handler(List<Loan> list){
+        List<Pdu> pduList = new ArrayList<>();
+        for (Loan loan : list) {
+            if (null == loan || null == loan.getId()) {
+                continue;
+            }
+
+            Pdu pdu = new PduDetailHandler().execute(loan.getUrl());
+            pduList.add(pdu);
+
+            // 筛选并投标并记录
+            new InvestHandler(loan, pdu);
+        }
+
+        // TODO 异步？
+        String json1 = JacksonUtils.toJson(list);
+        HttpUtils.send(Constants.Server.LOAN_RECEIVE_URL, json1);
+
+        String json2 = JacksonUtils.toJson(pduList);
+        HttpUtils.send(Constants.Server.PDU_RECEIVE, json2);
     }
 
 

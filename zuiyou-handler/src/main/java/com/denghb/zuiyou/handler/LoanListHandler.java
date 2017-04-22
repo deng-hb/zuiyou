@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class LoanListHandler implements Runnable {
 
-    public interface  LoanListHandlerCallback {
+    public interface LoanListHandlerCallback {
         void list(List<Loan> list);
     }
 
@@ -31,6 +31,8 @@ public class LoanListHandler implements Runnable {
     private static final String LOAN_KEY = "id=";
     private LoanListHandlerCallback callback;
 
+
+    private static String THREAD_NAME = "thread-loan-";
     private int type;
     private int total = 0;
     private int page = 1;
@@ -38,6 +40,7 @@ public class LoanListHandler implements Runnable {
     public LoanListHandler(int type) {
         this.type = type;
     }
+
 
     @Override
     public void run() {
@@ -186,7 +189,7 @@ public class LoanListHandler implements Runnable {
             }
         }
 
-        if (null != callback){
+        if (null != callback) {
             callback.list(list);
         }
         // 递归
