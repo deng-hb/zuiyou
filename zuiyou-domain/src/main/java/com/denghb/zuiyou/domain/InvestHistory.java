@@ -22,10 +22,10 @@ CREATE TABLE `invest_history` (
   KEY `IDX_CREATED_TIME` (`created_time`),
   KEY `IDX_UPDATED_TIME` (`updated_time`),
   KEY `IDX_DELETED` (`deleted`)
-) ENGINE=InnoDB AUTO_INCREMENT=750 DEFAULT CHARSET=utf8
+) ENGINE=InnoDB AUTO_INCREMENT=952 DEFAULT CHARSET=utf8
  <pre>
  * @author DbHelper
- * @generateTime Wed Apr 19 00:26:16 CST 2017
+ * @generateTime Sat Apr 22 23:35:45 CST 2017
  */
 @Table(name="invest_history",database="crazy_invest")
 public class InvestHistory implements java.io.Serializable {

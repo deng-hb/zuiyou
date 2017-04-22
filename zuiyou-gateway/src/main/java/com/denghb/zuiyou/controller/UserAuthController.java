@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 
 /**
  * Created by denghb on 2017/4/11.
@@ -100,6 +101,37 @@ public class UserAuthController {
         return json;
     }
 
+    @RequestMapping("/updateBalance")
+    public JsonModel updateBalance(String pdu, BigDecimal balance) {
 
+        JsonModel json = new JsonModel();
+        try {
+
+            userRuleAuthService.updateBalance(pdu, balance);
+            json.setCode(1);
+            json.setMsg("操作成功");
+        } catch (Exception e) {
+            log.warn(e.getMessage(), e);
+            json.setCode(0);
+            json.setMsg("操作失败");
+        }
+        return json;
+    }
+    @RequestMapping("/invalid")
+    public JsonModel invalid(String pdu, BigDecimal balance) {
+
+        JsonModel json = new JsonModel();
+        try {
+
+            userRuleAuthService.invalid(pdu);
+            json.setCode(1);
+            json.setMsg("操作成功");
+        } catch (Exception e) {
+            log.warn(e.getMessage(), e);
+            json.setCode(0);
+            json.setMsg("操作失败");
+        }
+        return json;
+    }
 
 }

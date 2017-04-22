@@ -2,7 +2,10 @@ package com.denghb.zuiyou.service;
 
 
 import com.denghb.zuiyou.domain.vo.UserRuleAuthVo;
+import com.denghb.zuiyou.exception.ZuiyouException;
 import com.denghb.zuiyou.model.CurrentUser;
+
+import java.math.BigDecimal;
 
 /**
  * Created by denghb on 2017/4/11.
@@ -34,10 +37,26 @@ public interface UserRuleAuthService {
      * @param currentUser
      */
     void open(CurrentUser currentUser);
+
     /**
      * 关闭投标
      *
      * @param currentUser
      */
     void close(CurrentUser currentUser);
+
+    /**
+     * 更新指定PDU的余额
+     *
+     * @param pdu
+     * @param balance
+     */
+    void updateBalance(String pdu, BigDecimal balance) throws ZuiyouException;
+
+    /**
+     * 授权失效
+     *
+     * @param pdu
+     */
+    void invalid(String pdu) throws ZuiyouException;
 }

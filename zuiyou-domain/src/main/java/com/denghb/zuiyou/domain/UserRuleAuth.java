@@ -12,10 +12,11 @@ import com.denghb.dbhelper.annotation.Table;
 CREATE TABLE `user_rule_auth` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) NOT NULL COMMENT '用户ID',
-  `rule_id` int(11) DEFAULT NULL COMMENT '规则ID',
-  `pdu` varchar(20) NOT NULL COMMENT '绑定pdu',
+  `rule_id` int(11) NOT NULL COMMENT '规则ID',
+  `pdu` varchar(20) DEFAULT '' COMMENT '绑定pdu',
   `is_open` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0:关闭，1:开启',
   `balance` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '用户余额',
+  `status` int(11) NOT NULL DEFAULT '0' COMMENT '0:授权失败,1:授权成功',
   `token` varchar(100) NOT NULL DEFAULT '',
   `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '插入时间',
   `updated_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -28,7 +29,7 @@ CREATE TABLE `user_rule_auth` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8
  <pre>
  * @author DbHelper
- * @generateTime Wed Apr 19 00:26:17 CST 2017
+ * @generateTime Sat Apr 22 23:35:45 CST 2017
  */
 @Table(name="user_rule_auth",database="crazy_invest")
 public class UserRuleAuth implements java.io.Serializable {
@@ -58,6 +59,10 @@ public class UserRuleAuth implements java.io.Serializable {
 	/** 用户余额 */
 	@Column(name="balance")
 	private java.math.BigDecimal balance;
+	
+	/** 0:授权失败,1:授权成功 */
+	@Column(name="status")
+	private Integer status;
 	
 	/**  */
 	@Column(name="token")
@@ -124,6 +129,14 @@ public class UserRuleAuth implements java.io.Serializable {
 		this.balance = balance;
 	}
 
+	public Integer getStatus(){
+		return status;
+	}
+
+	public void setStatus(Integer status){
+		this.status = status;
+	}
+
 	public String getToken(){
 		return token;
 	}
@@ -181,6 +194,10 @@ public class UserRuleAuth implements java.io.Serializable {
 		str.append(",");
 		str.append("balance=\"");
 		str.append(balance);
+		str.append("\"");
+		str.append(",");
+		str.append("status=\"");
+		str.append(status);
 		str.append("\"");
 		str.append(",");
 		str.append("token=\"");

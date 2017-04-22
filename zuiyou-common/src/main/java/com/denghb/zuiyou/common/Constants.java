@@ -31,6 +31,16 @@ public class Constants {
          * PDU信息
          */
         public static final String PDU_RECEIVE = PROTOCOL + GATEWAY_HOST + "/pdu/receive";
+
+        /**
+         * 更新余额
+         */
+        public static final String UPDATE_BALANCE = PROTOCOL + GATEWAY_HOST + "/user/auth/updateBalance";
+
+        /**
+         * 授权已失效
+         */
+        public static final String AUTH_INVALID = PROTOCOL + GATEWAY_HOST + "/user/auth/invalid";
     }
 
     public static class Web {

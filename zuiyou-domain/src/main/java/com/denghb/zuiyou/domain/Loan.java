@@ -37,7 +37,7 @@ CREATE TABLE `loan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
  <pre>
  * @author DbHelper
- * @generateTime Wed Apr 19 00:26:17 CST 2017
+ * @generateTime Sat Apr 22 23:35:45 CST 2017
  */
 @Table(name="loan",database="crazy_invest")
 public class Loan implements java.io.Serializable {

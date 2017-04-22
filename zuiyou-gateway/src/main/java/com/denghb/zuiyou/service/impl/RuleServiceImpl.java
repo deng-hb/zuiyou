@@ -27,7 +27,7 @@ public class RuleServiceImpl implements RuleService {
 
     @Override
     public List<RuleVo> list() {
-        String sql = "select r.*,ura.token as token,ura.user_id as userId from rule r left join user_rule_auth ura on r.id = ura.rule_id where ura.is_open = 1 and ura.deleted = 0";
+        String sql = "select r.*,ura.token as token,ura.user_id as userId,ura.pdu as pdu from rule r left join user_rule_auth ura on r.id = ura.rule_id where ura.is_open = 1 and ura.deleted = 0";
         return db.list(sql, RuleVo.class);
     }
 

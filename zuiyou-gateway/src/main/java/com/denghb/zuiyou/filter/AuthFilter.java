@@ -36,6 +36,8 @@ public class AuthFilter implements Filter {
         exclusions.add("/rule/list");
         exclusions.add("/invest/history/create");
         exclusions.add("/cmd");
+        exclusions.add("/user/auth/updateBalance");
+        exclusions.add("/user/auth/invalid");
     }
 
     @Override

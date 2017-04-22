@@ -5,12 +5,15 @@ import com.denghb.zuiyou.common.Constants;
 import com.denghb.zuiyou.domain.Rule;
 import com.denghb.zuiyou.domain.UserRuleAuth;
 import com.denghb.zuiyou.domain.vo.UserRuleAuthVo;
+import com.denghb.zuiyou.exception.ZuiyouException;
 import com.denghb.zuiyou.model.CurrentUser;
 import com.denghb.zuiyou.server.NioServer;
 import com.denghb.zuiyou.service.UserRuleAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
 
 /**
  * Created by denghb on 2017/4/11.
@@ -30,6 +33,7 @@ public class UserRuleAuthServiceImpl implements UserRuleAuthService {
         if (null != ura) {
             // 更新
             ura.setToken(token);
+            ura.setStatus(1);
             db.updateById(ura);
         } else {
             // 新建
@@ -54,8 +58,6 @@ public class UserRuleAuthServiceImpl implements UserRuleAuthService {
     }
 
 
-
-
     @Override
     public void open(CurrentUser currentUser) {
         long userId = currentUser.getUserId();
@@ -74,5 +76,23 @@ public class UserRuleAuthServiceImpl implements UserRuleAuthService {
         db.updateById(ura);
 
         NioServer.sendCommand(Constants.Command.UPDATE_RULE);
+    }
+
+    @Override
+    public void updateBalance(String pdu, BigDecimal balance) throws ZuiyouException {
+        // pdu 唯一
+        int res = db.execute("update user_rule_auth set balance = ? where pdu = ?", balance, pdu);
+        if (1 != res) {
+            throw new ZuiyouException("余额更新失败");
+        }
+    }
+
+    @Override
+    public void invalid(String pdu) throws ZuiyouException {
+        // pdu 唯一
+        int res = db.execute("update user_rule_auth set status = 0 where pdu = ?", pdu);
+        if (1 != res) {
+            throw new ZuiyouException("授权失效更新失败");
+        }
     }
 }

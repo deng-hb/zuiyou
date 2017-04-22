@@ -79,7 +79,7 @@ public class InvestHandler {
         String url = String.format(INVEST_URL, loan.getId(), rule.getAmount().intValue());
         Connection connection = Jsoup.connect(url);
         // 这样就登录了。。。。
-        connection.header("Cookie", String.format("token=%s;",rule.getToken()));
+        connection.header("Cookie", rule.getToken());
         Document document = null;
         try {
             document = connection.get();
@@ -105,7 +105,7 @@ public class InvestHandler {
 
     public static void main(String[] args){
         Connection connection = Jsoup.connect("http://www.ppdai.com/user/pdu4248118068");
-        //connection.header("Cookie", "token=41d208ac-0e4e-4e3b-840a-33a2ea4dfbbb;");
+        connection.header("Cookie", "authid=98315E594BF26C87716AC20701589F401B5B462D98031539D9E285141392530BC961C1A85F4522D1D2DBE983F20880722855AA898A30B5B238A3321988C3B6CED28FB47FBAE8C8E59B8C0BC25828471D8CF1B5E3F7C9FF53D76AFE4EE2B3CC1E80CCF2B1A8FF0C08A82C35B3972E06B6B8899D4010E1521A501228EE11CC9BF923BC689621BBD25536D18208886753F6E73D640A2A907142626D00EF5F09D23DAD7235B17859F03997C5A55C77989B0367EA5A2D; token=192ed2ac-1b99-4ddc-b687-ab318238364d; ");
         Document document = null;
         try {
             document = connection.get();
