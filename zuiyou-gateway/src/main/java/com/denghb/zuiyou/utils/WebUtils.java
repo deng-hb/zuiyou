@@ -2,7 +2,7 @@ package com.denghb.zuiyou.utils;
 
 
 import com.denghb.zuiyou.common.Constants;
-import com.denghb.zuiyou.model.CurrentUser;
+import com.denghb.zuiyou.model.Credential;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,10 +17,10 @@ public class WebUtils {
      * @param request
      * @return
      */
-    public static CurrentUser getCurrentUser(HttpServletRequest request) {
-        Object object = request.getSession().getAttribute(Constants.Web.CURRENT_USER);
-        if (null != object && object instanceof CurrentUser) {
-            return (CurrentUser) object;
+    public static Credential getCredential(HttpServletRequest request) {
+        Object object = request.getSession().getAttribute(Constants.Web.CREDENTIAL);
+        if (null != object && object instanceof Credential) {
+            return (Credential) object;
         }
         return null;
     }

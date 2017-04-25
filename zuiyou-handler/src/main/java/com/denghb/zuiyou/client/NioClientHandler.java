@@ -1,7 +1,7 @@
 package com.denghb.zuiyou.client;
 
 import com.denghb.zuiyou.common.Constants;
-import com.denghb.zuiyou.data.RuleVoData;
+import com.denghb.zuiyou.data.UserRuleVoData;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.slf4j.Logger;
@@ -50,7 +50,7 @@ public class NioClientHandler extends SimpleChannelInboundHandler<String> {
 
         switch (cmd) {
             case Constants.Command.UPDATE_RULE:
-                RuleVoData.pull();
+                UserRuleVoData.pull();
                 break;
 
             case Constants.Command.SYSTEM_EXIT:

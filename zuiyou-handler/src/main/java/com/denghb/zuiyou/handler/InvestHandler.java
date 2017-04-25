@@ -1,12 +1,13 @@
 package com.denghb.zuiyou.handler;
 
 import com.denghb.zuiyou.common.Constants;
-import com.denghb.zuiyou.data.RuleVoData;
-import com.denghb.zuiyou.domain.InvestHistory;
+import com.denghb.zuiyou.data.UserRuleVoData;
+import com.denghb.zuiyou.domain.History;
 import com.denghb.zuiyou.domain.Loan;
 import com.denghb.zuiyou.domain.Pdu;
-import com.denghb.zuiyou.domain.vo.RuleVo;
+import com.denghb.zuiyou.domain.vo.UserRuleVo;
 import com.denghb.zuiyou.utils.HttpUtils;
+import com.denghb.zuiyou.utils.JacksonUtils;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,9 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by denghb on 2017/4/17.
@@ -31,8 +30,8 @@ public class InvestHandler {
     public InvestHandler(Loan loan, Pdu pdu) {
 
         // 分析标的
-        List<RuleVo> rules = RuleVoData.getList();
-        for (RuleVo vo : rules) {
+        List<UserRuleVo> rules = UserRuleVoData.getList();
+        for (UserRuleVo vo : rules) {
             boolean b = compare(vo, loan, pdu);
             if (b) {
                 run(vo, loan, pdu);
@@ -49,7 +48,7 @@ public class InvestHandler {
      * @param pdu
      * @return
      */
-    private boolean compare(RuleVo rule, Loan loan, Pdu pdu) {
+    private boolean compare(UserRuleVo rule, Loan loan, Pdu pdu) {
         // 比最小还小
         if (null == rule.getLimitMin() || rule.getLimitMin().intValue() > loan.getLimit().intValue()) {
             return false;
@@ -75,7 +74,7 @@ public class InvestHandler {
      * @param loan
      * @param pdu
      */
-    private void run(RuleVo rule, Loan loan, Pdu pdu) {
+    private void run(UserRuleVo rule, Loan loan, Pdu pdu) {
         String url = String.format(INVEST_URL, loan.getId(), rule.getAmount().intValue());
         Connection connection = Jsoup.connect(url);
         // 这样就登录了。。。。
@@ -86,21 +85,19 @@ public class InvestHandler {
         } catch (IOException e) {
             log.error(e.getMessage());
         }
-        InvestHistory investHistory = new InvestHistory();
+        History history = new History();
 
         for (Element element : document.select(".lend_detail_biderror")) {
             String remarks = element.text();
-            investHistory.setRemarks(remarks);
+            history.setRemarks(remarks);
             log.info(element.text());
             break;
         }
+        history.setPdu(pdu.getPdu());
+        history.setUserId(rule.getUserId());
 
-        Map<String, String> map = new HashMap<>();
-        map.put("remarks", investHistory.getRemarks());
-        map.put("pdu", pdu.getPdu());
-        map.put("userId", rule.getUserId().toString());
-        map.put("loanId", loan.getId().toString());
-        HttpUtils.post(Constants.Server.INVEST_HISTORY_CREATE_URL, map);
+        String body = JacksonUtils.toJson(history);
+        HttpUtils.send(Constants.Server.INVEST_HISTORY_CREATE_URL, body);
     }
 
     public static void main(String[] args){

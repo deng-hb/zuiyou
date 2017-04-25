@@ -1,7 +1,7 @@
 package com.denghb.zuiyou.filter;
 
 import com.denghb.zuiyou.common.Constants;
-import com.denghb.zuiyou.model.CurrentUser;
+import com.denghb.zuiyou.model.Credential;
 import com.denghb.zuiyou.model.JsonModel;
 import com.denghb.zuiyou.utils.JacksonUtils;
 import com.denghb.zuiyou.utils.WebUtils;
@@ -31,11 +31,11 @@ public class AuthFilter implements Filter {
         exclusions.add("/favicon.ico");
         exclusions.add("/pdu/receive");
         exclusions.add("/loan/receive");
+        exclusions.add("/history/create");
+        exclusions.add("/cmd");
         exclusions.add("/user/signin");
         exclusions.add("/user/signup");
-        exclusions.add("/rule/list");
-        exclusions.add("/invest/history/create");
-        exclusions.add("/cmd");
+        exclusions.add("/user/rule/listAll");
         exclusions.add("/user/auth/updateBalance");
         exclusions.add("/user/auth/invalid");
     }
@@ -51,9 +51,9 @@ public class AuthFilter implements Filter {
         String client = request.getHeader("X-Client");
         // 请求路径
         String uri = request.getRequestURI();
-        CurrentUser currentUser = WebUtils.getCurrentUser(request);
+        Credential credential = WebUtils.getCredential(request);
         String ipAddr = WebUtils.getIpAddr(request);
-        log.info("client:[{}],method:[{}],ip,[{}],uri:[{}],current:[{}]", client, method, ipAddr, uri, null == currentUser ? "nil" : currentUser.getUsername());
+        log.info("client:[{}],method:[{}],ip,[{}],uri:[{}],current:[{}]", client, method, ipAddr, uri, null == credential ? "nil" : credential.getUsername());
 
         if (null == client || 0 != client.indexOf("don't touch me")) {
             error(request, response);
@@ -61,13 +61,13 @@ public class AuthFilter implements Filter {
         }
 
         // 未登录、而且不是可访问地址
-        if (!exclusions.contains(uri) && null == currentUser) {
+        if (!exclusions.contains(uri) && null == credential) {
             error(request, response);
             return;
         }
 
         // 会话状态检测
-        if (uri.equals(Constants.Web.URL_SESSION) && null != currentUser) {
+        if (uri.equals(Constants.Web.URL_SESSION) && null != credential) {
             session(request, response);
             return;
         }

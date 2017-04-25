@@ -7,8 +7,8 @@ window.zuiyou = {
     bidOpen:"https://gateway.zuiyou.bid/user/auth/open",
     bidClose:"https://gateway.zuiyou.bid/user/auth/close",
     authInfo:"https://gateway.zuiyou.bid/user/auth/info",
-    ruleSave:"https://gateway.zuiyou.bid/rule/save",
-    investHistoryList:"https://gateway.zuiyou.bid/invest/history/list"
+    ruleCreate:"https://gateway.zuiyou.bid/user/rule/create",
+    historyList:"https://gateway.zuiyou.bid/history/list"
 };
 /*
 toastr.options = {

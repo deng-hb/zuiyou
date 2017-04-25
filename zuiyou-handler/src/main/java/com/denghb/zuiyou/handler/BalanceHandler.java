@@ -1,8 +1,8 @@
 package com.denghb.zuiyou.handler;
 
 import com.denghb.zuiyou.common.Constants;
-import com.denghb.zuiyou.data.RuleVoData;
-import com.denghb.zuiyou.domain.vo.RuleVo;
+import com.denghb.zuiyou.data.UserRuleVoData;
+import com.denghb.zuiyou.domain.vo.UserRuleVo;
 import com.denghb.zuiyou.utils.HttpUtils;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -28,9 +28,9 @@ public class BalanceHandler implements Runnable {
 
         log.info("balance update execute");
 
-        List<RuleVo> list = RuleVoData.getList();
+        List<UserRuleVo> list = UserRuleVoData.getList();
 
-        for (RuleVo vo : list) {
+        for (UserRuleVo vo : list) {
             String pdu = vo.getPdu();
             log.info("pdu[{}] balance update execute", pdu);
 

@@ -10,7 +10,7 @@ import com.denghb.dbhelper.annotation.Table;
  * 
  <pre>
 CREATE TABLE `rule` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `amount` decimal(10,2) DEFAULT NULL COMMENT '金额',
   `age_min` int(11) DEFAULT NULL COMMENT '最小年龄',
   `age_max` int(11) DEFAULT NULL COMMENT '最大年龄',
@@ -34,7 +34,7 @@ CREATE TABLE `rule` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8
  <pre>
  * @author DbHelper
- * @generateTime Sun Apr 23 00:45:30 CST 2017
+ * @generateTime Wed Apr 26 00:36:44 CST 2017
  */
 @Table(name="rule",database="crazy_invest")
 public class Rule implements java.io.Serializable {
@@ -43,7 +43,7 @@ public class Rule implements java.io.Serializable {
 	
 	/**  */
 	@Id@Column(name="id")
-	private Integer id;
+	private Long id;
 	
 	/** 金额 */
 	@Column(name="amount")
@@ -110,11 +110,11 @@ public class Rule implements java.io.Serializable {
 	private Boolean deleted;
 	
 
-	public Integer getId(){
+	public Long getId(){
 		return id;
 	}
 
-	public void setId(Integer id){
+	public void setId(Long id){
 		this.id = id;
 	}
 

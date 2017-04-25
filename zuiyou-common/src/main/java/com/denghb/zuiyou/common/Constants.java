@@ -15,12 +15,12 @@ public class Constants {
         /**
          * 获取投标规则
          */
-        public static final String RULE_LIST_URL = PROTOCOL + GATEWAY_HOST + "/rule/list";
+        public static final String RULE_LIST_ALL_URL = PROTOCOL + GATEWAY_HOST + "/user/rule/listAll";
 
         /**
          * 创建投标记录
          */
-        public static final String INVEST_HISTORY_CREATE_URL = PROTOCOL + GATEWAY_HOST + "/invest/history/create";
+        public static final String INVEST_HISTORY_CREATE_URL = PROTOCOL + GATEWAY_HOST + "/history/create";
 
         /**
          * 借款标的
@@ -45,7 +45,10 @@ public class Constants {
 
     public static class Web {
 
-        public static final String CURRENT_USER = "CURRENT_USER";
+        /**
+         * 登录凭证
+         */
+        public static final String CREDENTIAL = "credential";
 
 
         /**

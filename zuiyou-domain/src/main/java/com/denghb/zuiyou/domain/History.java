@@ -9,30 +9,26 @@ import com.denghb.dbhelper.annotation.Table;
  * DDL
  * 
  <pre>
-CREATE TABLE `user_rule_auth` (
+CREATE TABLE `history` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) NOT NULL COMMENT '用户ID',
-  `rule_id` int(11) NOT NULL COMMENT '规则ID',
-  `pdu` varchar(20) DEFAULT '' COMMENT '绑定pdu',
-  `is_open` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0:关闭，1:开启',
-  `balance` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '用户余额',
-  `status` int(11) NOT NULL DEFAULT '0' COMMENT '0:授权失败,1:授权成功',
-  `token` text NOT NULL COMMENT 'cookie',
+  `user_id` bigint(20) NOT NULL COMMENT '投标用户',
+  `loan_id` int(11) NOT NULL COMMENT '标的ID',
+  `pdu` varchar(100) NOT NULL DEFAULT '' COMMENT '借款人',
+  `remarks` varchar(200) DEFAULT NULL COMMENT '备注',
   `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '插入时间',
   `updated_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `deleted` tinyint(4) NOT NULL DEFAULT '0' COMMENT '逻辑删除',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_PDU` (`pdu`),
   KEY `IDX_CREATED_TIME` (`created_time`),
   KEY `IDX_UPDATED_TIME` (`updated_time`),
   KEY `IDX_DELETED` (`deleted`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8
+) ENGINE=InnoDB AUTO_INCREMENT=952 DEFAULT CHARSET=utf8
  <pre>
  * @author DbHelper
- * @generateTime Sun Apr 23 00:45:30 CST 2017
+ * @generateTime Wed Apr 26 00:36:44 CST 2017
  */
-@Table(name="user_rule_auth",database="crazy_invest")
-public class UserRuleAuth implements java.io.Serializable {
+@Table(name="history",database="crazy_invest")
+public class History implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -40,33 +36,21 @@ public class UserRuleAuth implements java.io.Serializable {
 	@Id@Column(name="id")
 	private Long id;
 	
-	/** 用户ID */
+	/** 投标用户 */
 	@Column(name="user_id")
 	private Long userId;
 	
-	/** 规则ID */
-	@Column(name="rule_id")
-	private Integer ruleId;
+	/** 标的ID */
+	@Column(name="loan_id")
+	private Integer loanId;
 	
-	/** 绑定pdu */
+	/** 借款人 */
 	@Column(name="pdu")
 	private String pdu;
 	
-	/** 0:关闭，1:开启 */
-	@Column(name="is_open")
-	private Boolean isOpen;
-	
-	/** 用户余额 */
-	@Column(name="balance")
-	private java.math.BigDecimal balance;
-	
-	/** 0:授权失败,1:授权成功 */
-	@Column(name="status")
-	private Integer status;
-	
-	/** cookie */
-	@Column(name="token")
-	private String token;
+	/** 备注 */
+	@Column(name="remarks")
+	private String remarks;
 	
 	/** 插入时间 */
 	@Column(name="created_time")
@@ -97,12 +81,12 @@ public class UserRuleAuth implements java.io.Serializable {
 		this.userId = userId;
 	}
 
-	public Integer getRuleId(){
-		return ruleId;
+	public Integer getLoanId(){
+		return loanId;
 	}
 
-	public void setRuleId(Integer ruleId){
-		this.ruleId = ruleId;
+	public void setLoanId(Integer loanId){
+		this.loanId = loanId;
 	}
 
 	public String getPdu(){
@@ -113,36 +97,12 @@ public class UserRuleAuth implements java.io.Serializable {
 		this.pdu = pdu;
 	}
 
-	public Boolean getIsOpen(){
-		return isOpen;
+	public String getRemarks(){
+		return remarks;
 	}
 
-	public void setIsOpen(Boolean isOpen){
-		this.isOpen = isOpen;
-	}
-
-	public java.math.BigDecimal getBalance(){
-		return balance;
-	}
-
-	public void setBalance(java.math.BigDecimal balance){
-		this.balance = balance;
-	}
-
-	public Integer getStatus(){
-		return status;
-	}
-
-	public void setStatus(Integer status){
-		this.status = status;
-	}
-
-	public String getToken(){
-		return token;
-	}
-
-	public void setToken(String token){
-		this.token = token;
+	public void setRemarks(String remarks){
+		this.remarks = remarks;
 	}
 
 	public java.util.Date getCreatedTime(){
@@ -171,7 +131,7 @@ public class UserRuleAuth implements java.io.Serializable {
 
 	@Override
 	public String toString(){
-		StringBuffer str = new StringBuffer("UserRuleAuth [");
+		StringBuffer str = new StringBuffer("History [");
 		str.append("id=\"");
 		str.append(id);
 		str.append("\"");
@@ -180,28 +140,16 @@ public class UserRuleAuth implements java.io.Serializable {
 		str.append(userId);
 		str.append("\"");
 		str.append(",");
-		str.append("ruleId=\"");
-		str.append(ruleId);
+		str.append("loanId=\"");
+		str.append(loanId);
 		str.append("\"");
 		str.append(",");
 		str.append("pdu=\"");
 		str.append(pdu);
 		str.append("\"");
 		str.append(",");
-		str.append("isOpen=\"");
-		str.append(isOpen);
-		str.append("\"");
-		str.append(",");
-		str.append("balance=\"");
-		str.append(balance);
-		str.append("\"");
-		str.append(",");
-		str.append("status=\"");
-		str.append(status);
-		str.append("\"");
-		str.append(",");
-		str.append("token=\"");
-		str.append(token);
+		str.append("remarks=\"");
+		str.append(remarks);
 		str.append("\"");
 		str.append(",");
 		str.append("createdTime=\"");

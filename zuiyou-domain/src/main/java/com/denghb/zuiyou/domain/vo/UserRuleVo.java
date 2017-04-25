@@ -5,7 +5,8 @@ import com.denghb.zuiyou.domain.Rule;
 /**
  * Created by denghb on 2017/4/17.
  */
-public class RuleVo extends Rule {
+public class UserRuleVo extends Rule {
+
     private String token;
 
     private Long userId;
@@ -38,7 +39,7 @@ public class RuleVo extends Rule {
 
     @Override
     public String toString() {
-        return "RuleVo{" +
+        return "UserRuleVo{" +
                 "token='" + token + '\'' +
                 ", userId=" + userId +
                 ", pdu='" + pdu + '\'' +

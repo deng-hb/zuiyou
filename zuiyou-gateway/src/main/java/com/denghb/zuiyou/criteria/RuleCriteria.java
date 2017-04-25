@@ -3,9 +3,9 @@ package com.denghb.zuiyou.criteria;
 import com.denghb.dbhelper.paging.Paging;
 
 /**
- * Created by denghb on 2017/4/20.
+ * Created by denghb on 2017/4/25.
  */
-public class InvestHistoryCriteria extends Paging {
+public class RuleCriteria extends Paging {
     @Override
     public String[] getSorts() {
         return new String[]{"id"};

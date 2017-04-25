@@ -1,9 +1,9 @@
 package com.denghb.zuiyou.controller;
 
-import com.denghb.zuiyou.domain.vo.UserRuleAuthVo;
-import com.denghb.zuiyou.model.CurrentUser;
+import com.denghb.zuiyou.domain.vo.UserAuthVo;
+import com.denghb.zuiyou.model.Credential;
 import com.denghb.zuiyou.model.JsonModel;
-import com.denghb.zuiyou.service.UserRuleAuthService;
+import com.denghb.zuiyou.service.UserAuthService;
 import com.denghb.zuiyou.utils.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +24,7 @@ public class UserAuthController {
     Logger log = LoggerFactory.getLogger(UserAuthController.class);
 
     @Autowired
-    private UserRuleAuthService userRuleAuthService;
+    private UserAuthService userAuthService;
 
     /**
      * 用户绑定
@@ -37,8 +37,8 @@ public class UserAuthController {
         try {
             String pdu = request.getParameter("pdu");
             String token = request.getParameter("token");
-            CurrentUser currentUser = WebUtils.getCurrentUser(request);
-            userRuleAuthService.bind(currentUser, pdu, token);
+            Credential credential = WebUtils.getCredential(request);
+            userAuthService.bind(credential, pdu, token);
             json.setCode(1);
             json.setMsg("绑定成功");
         } catch (Exception e) {
@@ -54,8 +54,8 @@ public class UserAuthController {
 
         JsonModel json = new JsonModel();
         try {
-            CurrentUser currentUser = WebUtils.getCurrentUser(request);
-            UserRuleAuthVo vo = userRuleAuthService.queryUserRuleAuthInfo(currentUser);
+            Credential credential = WebUtils.getCredential(request);
+            UserAuthVo vo = userAuthService.queryUserAuthInfo(credential);
             json.setCode(1);
             json.setData(vo);
         } catch (Exception e) {
@@ -72,8 +72,8 @@ public class UserAuthController {
 
         JsonModel json = new JsonModel();
         try {
-            CurrentUser currentUser = WebUtils.getCurrentUser(request);
-            userRuleAuthService.open(currentUser);
+            Credential credential = WebUtils.getCredential(request);
+            userAuthService.open(credential);
             json.setCode(1);
             json.setMsg("操作成功");
         } catch (Exception e) {
@@ -89,8 +89,8 @@ public class UserAuthController {
 
         JsonModel json = new JsonModel();
         try {
-            CurrentUser currentUser = WebUtils.getCurrentUser(request);
-            userRuleAuthService.close(currentUser);
+            Credential credential = WebUtils.getCredential(request);
+            userAuthService.close(credential);
             json.setCode(1);
             json.setMsg("操作成功");
         } catch (Exception e) {
@@ -107,7 +107,7 @@ public class UserAuthController {
         JsonModel json = new JsonModel();
         try {
 
-            userRuleAuthService.updateBalance(pdu, balance);
+            userAuthService.updateBalance(pdu, balance);
             json.setCode(1);
             json.setMsg("操作成功");
         } catch (Exception e) {
@@ -123,7 +123,7 @@ public class UserAuthController {
         JsonModel json = new JsonModel();
         try {
 
-            userRuleAuthService.invalid(pdu);
+            userAuthService.invalid(pdu);
             json.setCode(1);
             json.setMsg("操作成功");
         } catch (Exception e) {

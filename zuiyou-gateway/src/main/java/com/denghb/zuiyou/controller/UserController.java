@@ -2,7 +2,7 @@ package com.denghb.zuiyou.controller;
 
 import com.denghb.zuiyou.common.Constants;
 import com.denghb.zuiyou.domain.User;
-import com.denghb.zuiyou.model.CurrentUser;
+import com.denghb.zuiyou.model.Credential;
 import com.denghb.zuiyou.model.JsonModel;
 import com.denghb.zuiyou.service.UserService;
 import com.denghb.zuiyou.utils.WebUtils;
@@ -32,7 +32,7 @@ public class UserController {
 
     // 登录
     @RequestMapping(value = "/signin")
-    public JsonModel signin(HttpServletRequest request, HttpServletResponse response) {
+    public JsonModel signin(HttpServletRequest request) {
 
         JsonModel json = new JsonModel();
         json.setCode(0);
@@ -73,13 +73,13 @@ public class UserController {
         }
 
 
-        CurrentUser currentUser = new CurrentUser();
-        currentUser.setUsername(username);
-        currentUser.setUserId(user.getId());
+        Credential credential = new Credential();
+        credential.setUsername(username);
+        credential.setUserId(user.getId());
 
         // 用户信息保存至新的session里面
         HttpSession session = request.getSession();
-        session.setAttribute(Constants.Web.CURRENT_USER, currentUser);
+        session.setAttribute(Constants.Web.CREDENTIAL, credential);
 
         json.setCode(1);
         return json;
@@ -104,13 +104,13 @@ public class UserController {
 
         try {
             User user = userService.signup(email, password);
-            CurrentUser currentUser = new CurrentUser();
-            currentUser.setUsername(email);
-            currentUser.setUserId(user.getId());
+            Credential credential = new Credential();
+            credential.setUsername(email);
+            credential.setUserId(user.getId());
 
             // 用户信息保存至新的session里面
             HttpSession session = request.getSession();
-            session.setAttribute(Constants.Web.CURRENT_USER, currentUser);
+            session.setAttribute(Constants.Web.CREDENTIAL, credential);
 
             json.setCode(1);
             return json;

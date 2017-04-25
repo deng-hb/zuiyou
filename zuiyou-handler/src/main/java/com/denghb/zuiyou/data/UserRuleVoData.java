@@ -1,7 +1,7 @@
 package com.denghb.zuiyou.data;
 
 import com.denghb.zuiyou.common.Constants;
-import com.denghb.zuiyou.domain.vo.RuleVo;
+import com.denghb.zuiyou.domain.vo.UserRuleVo;
 import com.denghb.zuiyou.utils.HttpUtils;
 import com.denghb.zuiyou.utils.JacksonUtils;
 import org.slf4j.Logger;
@@ -13,17 +13,17 @@ import java.util.List;
 /**
  * Created by denghb on 2017/4/17.
  */
-public class RuleVoData {
+public class UserRuleVoData {
 
-    private static Logger log = LoggerFactory.getLogger(RuleVoData.class);
+    private static Logger log = LoggerFactory.getLogger(UserRuleVoData.class);
 
 
-    private static List<RuleVo> list = new ArrayList<>();
+    private static List<UserRuleVo> list = new ArrayList<>();
 
-    public static List<RuleVo> getList() {
+    public static List<UserRuleVo> getList() {
         // 第一次获取
         if (list.isEmpty()) {
-            RuleVoData.pull();
+            UserRuleVoData.pull();
         }
         return list;
     }
@@ -32,9 +32,9 @@ public class RuleVoData {
      * 更新数据
      */
     public static void pull() {
-        log.info("RuleVoData pull");
+        log.info("UserRuleVoData pull");
         //
-        String json = HttpUtils.get(Constants.Server.RULE_LIST_URL);
-        list = JacksonUtils.toList(json, RuleVo.class);
+        String json = HttpUtils.get(Constants.Server.RULE_LIST_ALL_URL);
+        list = JacksonUtils.toList(json, UserRuleVo.class);
     }
 }
