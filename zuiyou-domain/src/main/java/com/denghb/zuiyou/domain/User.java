@@ -25,9 +25,9 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8
  <pre>
  * @author DbHelper
- * @generateTime Thu Apr 27 15:48:00 CST 2017
+ * @generateTime Thu Apr 27 20:22:27 CST 2017
  */
-@Table(name="user",database="crazy_invest")
+@Table(name="user",database="zuiyou")
 public class User implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;

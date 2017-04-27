@@ -11,8 +11,8 @@ import com.denghb.dbhelper.annotation.Table;
  <pre>
 CREATE TABLE `user_auth` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) NOT NULL COMMENT '用户ID',
-  `pdu` varchar(20) NOT NULL DEFAULT '' COMMENT '绑定pdu',
+  `user_id` bigint(20) DEFAULT NULL COMMENT '用户ID',
+  `pdu` varchar(20) DEFAULT '' COMMENT '绑定pdu',
   `is_open` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0:关闭，1:开启',
   `balance` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '用户余额',
   `status` int(11) NOT NULL DEFAULT '0' COMMENT '0:授权失败,1:授权成功',
@@ -21,16 +21,16 @@ CREATE TABLE `user_auth` (
   `updated_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `deleted` tinyint(4) NOT NULL DEFAULT '0' COMMENT '逻辑删除',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_USER_PDU` (`user_id`,`pdu`),
+  UNIQUE KEY `UK_PDU` (`pdu`),
   KEY `IDX_CREATED_TIME` (`created_time`),
   KEY `IDX_UPDATED_TIME` (`updated_time`),
   KEY `IDX_DELETED` (`deleted`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8
  <pre>
  * @author DbHelper
- * @generateTime Thu Apr 27 15:48:00 CST 2017
+ * @generateTime Thu Apr 27 20:22:27 CST 2017
  */
-@Table(name="user_auth",database="crazy_invest")
+@Table(name="user_auth",database="zuiyou")
 public class UserAuth implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;

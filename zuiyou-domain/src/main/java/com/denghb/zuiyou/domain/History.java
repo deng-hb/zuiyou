@@ -25,9 +25,9 @@ CREATE TABLE `history` (
 ) ENGINE=InnoDB AUTO_INCREMENT=990 DEFAULT CHARSET=utf8
  <pre>
  * @author DbHelper
- * @generateTime Thu Apr 27 15:48:00 CST 2017
+ * @generateTime Thu Apr 27 20:22:26 CST 2017
  */
-@Table(name="history",database="crazy_invest")
+@Table(name="history",database="zuiyou")
 public class History implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;

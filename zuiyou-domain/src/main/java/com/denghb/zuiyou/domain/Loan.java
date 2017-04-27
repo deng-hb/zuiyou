@@ -37,9 +37,9 @@ CREATE TABLE `loan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
  <pre>
  * @author DbHelper
- * @generateTime Thu Apr 27 15:48:00 CST 2017
+ * @generateTime Thu Apr 27 20:22:27 CST 2017
  */
-@Table(name="loan",database="crazy_invest")
+@Table(name="loan",database="zuiyou")
 public class Loan implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
