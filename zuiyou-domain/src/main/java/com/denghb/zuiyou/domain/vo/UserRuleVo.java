@@ -11,8 +11,6 @@ public class UserRuleVo extends Rule {
 
     private Long userId;
 
-    private String pdu;
-
     public String getToken() {
         return token;
     }
@@ -29,20 +27,11 @@ public class UserRuleVo extends Rule {
         this.userId = userId;
     }
 
-    public String getPdu() {
-        return pdu;
-    }
-
-    public void setPdu(String pdu) {
-        this.pdu = pdu;
-    }
-
     @Override
     public String toString() {
         return "UserRuleVo{" +
                 "token='" + token + '\'' +
                 ", userId=" + userId +
-                ", pdu='" + pdu + '\'' +
                 "} " + super.toString();
     }
 }

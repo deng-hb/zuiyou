@@ -26,13 +26,13 @@ public class UserRuleServiceImpl implements UserRuleService {
 
     @Override
     public List<UserRuleVo> listAll() {
-        String sql = "select r.*,ua.token as token,ua.pdu as pdu,ur.user_id as userId from user_rule ur left join rule r on r.id = ur.rule_id " +
-                " left join user_auth ua on ua.user_id = ur.user_id where ua.is_open = 1 and ur.deleted = 0";
+        String sql = "select r.*,ua.token as token,ur.user_id as userId from user_rule ur left join rule r on r.id = ur.rule_id " +
+                " left join user_auth ua on ua.user_id = ur.user_id and ua.pdu = ur.pdu where ur.deleted = 0 and ua.deleted = 0 and ua.is_open = 1 ";
         return db.list(sql, UserRuleVo.class);
     }
 
     @Override
-    public void create(Credential credential, Rule rule) {
+    public void create(Credential credential, String pdu, Rule rule) {
         db.insert(rule);
 
 
@@ -40,7 +40,7 @@ public class UserRuleServiceImpl implements UserRuleService {
         UserRule ur = new UserRule();
         ur.setRuleId(rule.getId());
         ur.setUserId(credential.getUserId());
-
+        ur.setPdu(pdu);
         db.insert(ur);
     }
 

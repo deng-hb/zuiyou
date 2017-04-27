@@ -13,6 +13,7 @@ CREATE TABLE `user_rule` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) NOT NULL COMMENT '用户ID',
   `rule_id` bigint(20) NOT NULL COMMENT '规则ID',
+  `pdu` varchar(100) NOT NULL DEFAULT '' COMMENT '绑定pdu',
   `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '插入时间',
   `updated_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `deleted` tinyint(4) NOT NULL DEFAULT '0' COMMENT '逻辑删除',
@@ -20,10 +21,10 @@ CREATE TABLE `user_rule` (
   KEY `IDX_CREATED_TIME` (`created_time`),
   KEY `IDX_UPDATED_TIME` (`updated_time`),
   KEY `IDX_DETELED` (`deleted`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4
  <pre>
  * @author DbHelper
- * @generateTime Wed Apr 26 00:36:45 CST 2017
+ * @generateTime Thu Apr 27 15:48:00 CST 2017
  */
 @Table(name="user_rule",database="crazy_invest")
 public class UserRule implements java.io.Serializable {
@@ -41,6 +42,10 @@ public class UserRule implements java.io.Serializable {
 	/** 规则ID */
 	@Column(name="rule_id")
 	private Long ruleId;
+	
+	/** 绑定pdu */
+	@Column(name="pdu")
+	private String pdu;
 	
 	/** 插入时间 */
 	@Column(name="created_time")
@@ -77,6 +82,14 @@ public class UserRule implements java.io.Serializable {
 
 	public void setRuleId(Long ruleId){
 		this.ruleId = ruleId;
+	}
+
+	public String getPdu(){
+		return pdu;
+	}
+
+	public void setPdu(String pdu){
+		this.pdu = pdu;
 	}
 
 	public java.util.Date getCreatedTime(){
@@ -116,6 +129,10 @@ public class UserRule implements java.io.Serializable {
 		str.append(",");
 		str.append("ruleId=\"");
 		str.append(ruleId);
+		str.append("\"");
+		str.append(",");
+		str.append("pdu=\"");
+		str.append(pdu);
 		str.append("\"");
 		str.append(",");
 		str.append("createdTime=\"");

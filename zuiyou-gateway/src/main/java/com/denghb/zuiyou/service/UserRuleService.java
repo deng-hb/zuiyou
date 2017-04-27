@@ -46,6 +46,15 @@ public interface UserRuleService {
 
 
     /**
+     * 绑定pdu
+     *
+     * @param credential
+     * @param id
+     * @param pdu
+     */
+    void bind(Credential credential, long id, String pdu);
+
+    /**
      * 查询
      *
      * @param credential
