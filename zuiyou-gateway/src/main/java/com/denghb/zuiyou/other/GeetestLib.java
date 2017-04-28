@@ -1,4 +1,4 @@
-package com.geetest.sdk.java;
+package com.denghb.zuiyou.other;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -24,8 +24,8 @@ public class GeetestLib {
 	protected final String verName = "3.2.0";// SDK版本编号
 	protected final String sdkLang = "java";// SD的语言类型
 
-	protected final String apiUrl = "http://api.geetest.com"; //极验验证API URL
-	protected final String baseUrl = "api.geetest.com";
+	protected final String apiUrl = "http://api.other.com"; //极验验证API URL
+	protected final String baseUrl = "api.other.com";
 	
 	protected final String registerUrl = "/register.php"; //register url
 	protected final String validateUrl = "/validate.php"; //validate url
@@ -506,7 +506,7 @@ public class GeetestLib {
 	}
 
 	protected boolean checkResultByPrivate(String challenge, String validate) {
-		String encodeStr = md5Encode(privateKey + "geetest" + challenge);
+		String encodeStr = md5Encode(privateKey + "other" + challenge);
 		return validate.equals(encodeStr);
 	}
 

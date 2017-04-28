@@ -75,6 +75,7 @@ public class InvestHandler {
      * @param pdu
      */
     private void run(UserRuleVo rule, Loan loan, Pdu pdu) {
+        History history = new History();
         String url = String.format(INVEST_URL, loan.getId(), rule.getAmount().intValue());
         Connection connection = Jsoup.connect(url);
         // 这样就登录了。。。。
@@ -83,9 +84,9 @@ public class InvestHandler {
         try {
             document = connection.get();
         } catch (IOException e) {
+            history.setRemarks(e.getMessage());
             log.error(e.getMessage());
         }
-        History history = new History();
 
         for (Element element : document.select(".lend_detail_biderror")) {
             String remarks = element.text();
@@ -97,6 +98,7 @@ public class InvestHandler {
         history.setUserId(rule.getUserId());
         history.setLoanId(loan.getId());
         history.setTitle(loan.getTitle());
+        history.setRuleId(rule.getId());
         String body = JacksonUtils.toJson(history);
         HttpUtils.send(Constants.Server.INVEST_HISTORY_CREATE_URL, body);
     }

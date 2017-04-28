@@ -1,12 +1,10 @@
 package com.denghb.zuiyou.service.impl;
 
 import com.denghb.dbhelper.DbHelper;
-import com.denghb.zuiyou.common.Constants;
 import com.denghb.zuiyou.domain.UserAuth;
 import com.denghb.zuiyou.domain.vo.UserAuthVo;
 import com.denghb.zuiyou.exception.ZuiyouException;
 import com.denghb.zuiyou.model.Credential;
-import com.denghb.zuiyou.server.NioServer;
 import com.denghb.zuiyou.service.UserAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,8 +63,6 @@ public class UserAuthServiceImpl implements UserAuthService {
         UserAuth ua = queryByUserId(userId);
         ua.setIsOpen(true);
         db.updateById(ua);
-
-        NioServer.sendCommand(Constants.Command.UPDATE_RULE);
     }
 
     @Override
@@ -75,8 +71,6 @@ public class UserAuthServiceImpl implements UserAuthService {
         UserAuth ua = queryByUserId(userId);
         ua.setIsOpen(false);
         db.updateById(ua);
-
-        NioServer.sendCommand(Constants.Command.UPDATE_RULE);
     }
 
     @Override

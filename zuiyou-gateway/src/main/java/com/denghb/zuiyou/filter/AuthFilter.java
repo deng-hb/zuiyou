@@ -55,6 +55,12 @@ public class AuthFilter implements Filter {
         String ipAddr = WebUtils.getIpAddr(request);
         log.info("client:[{}],method:[{}],ip,[{}],uri:[{}],current:[{}]", client, method, ipAddr, uri, null == credential ? "nil" : credential.getUsername());
 
+        // websocket 直接放行
+        if (null != uri && uri.startsWith("/socket")) {
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
+
         if (null == client || 0 != client.indexOf("don't touch me")) {
             error(request, response);
             return;

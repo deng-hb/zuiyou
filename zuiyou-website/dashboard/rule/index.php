@@ -58,15 +58,15 @@
                      targets: 4,
                      createdCell: function (td, cellData, rowData, row, col) {
                          if(rowData)
-                         $(td).text(rowData.rateMin+"月~"+rowData.rateMax+"月");
+                         $(td).text(rowData.limitMin+"月~"+rowData.limitMax+"月");
                      }
-                 },{
-                      targets: 5,
-                      createdCell: function (td, cellData, rowData, row, col) {
-                          if(rowData)
-                          $(td).text(rowData.rateMin+"岁~"+rowData.rateMax+"岁");
-                      }
-                  }]
+                },{
+                    targets: 5,
+                    createdCell: function (td, cellData, rowData, row, col) {
+                        if(rowData)
+                        $(td).text(rowData.ageMin+"岁~"+rowData.ageMax+"岁");
+                    }
+                }]
              });
         });
     </script>

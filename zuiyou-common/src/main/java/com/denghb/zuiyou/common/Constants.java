@@ -8,7 +8,6 @@ public class Constants {
     public static class Server {
 
         public static final String HOST = "zuiyou.bid";
-        public static final int PORT = 1235;
         public static final String GATEWAY_HOST = "gateway.zuiyou.bid";
         public static final String PROTOCOL = "https://";
 

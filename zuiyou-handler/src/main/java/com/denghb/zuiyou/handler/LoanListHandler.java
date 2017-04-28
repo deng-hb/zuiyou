@@ -25,7 +25,8 @@ public class LoanListHandler implements Runnable {
 
     private Logger log = LoggerFactory.getLogger(LoanListHandler.class);
 
-    static String PPDAI_LOANLIST_URL = "http://invest.ppdai.com/loan/listnew?LoanCategoryId=%d&PageIndex=%d&SortType=3";
+    /** 期限倒序 */
+    static String PPDAI_LOANLIST_URL = "http://invest.ppdai.com/loan/listnew?LoanCategoryId=%d&PageIndex=%d&SortType=10";
 
     private static final String PDU_KEY = "/user/";
     private static final String LOAN_KEY = "id=";
