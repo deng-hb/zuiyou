@@ -21,17 +21,12 @@
                     </a>
                 </li>
                 <li class="sidebar-nav-link">
-                    <a href="user.php" class="<?php echo $active == 'user'?'active':'' ?>">
-                        <i class="am-icon-table sidebar-nav-link-logo"></i> 投标用户
-                    </a>
-                </li>
-                <li class="sidebar-nav-link">
-                    <a href="rule.php">
+                    <a href="rule.php" class="<?php echo $active == 'rule'?'active':'' ?>">
                         <i class="am-icon-calendar sidebar-nav-link-logo"></i> 投标规则
                     </a>
                 </li>
                 <li class="sidebar-nav-link">
-                    <a href="history.php">
+                    <a href="history.php" class="<?php echo $active == 'history'?'active':'' ?>">
                         <i class="am-icon-wpforms sidebar-nav-link-logo"></i> 投标记录
 
                     </a>

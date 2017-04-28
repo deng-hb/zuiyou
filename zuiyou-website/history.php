@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php $title = '投标记录' ?>
-    <?php require_once '_/head.php' ?>
+    <?php $title = '投标记录'; require_once '_/head.php' ?>
 </head>
 
 <body class="theme-white">
@@ -10,7 +9,7 @@
         <!-- 头部 -->
         <?php require_once '_/header.php' ?>
         <!-- 侧边导航栏 -->
-        <?php $active = 'user'; require_once '_/sidebar.php' ?>
+        <?php $active = 'history'; require_once '_/sidebar.php' ?>
 
         <!-- 内容区域 -->
         <div class="tpl-content-wrapper">
@@ -19,7 +18,7 @@
 
                 <div class="widget am-cf">
                     <div class="widget-head am-cf">
-                        <div class="widget-title am-fl">用户列表</div>
+                        <div class="widget-title am-fl">投标记录</div>
 
                     </div>
                     <div class="widget-body am-fr">
@@ -48,14 +47,27 @@
                 url:zuiyou.historyList,
                 fields:["id","loanId","remarks","createdTime"],
                 columnDefs: [{
+                     targets: 1,
+                     createdCell: function (td, cellData, rowData, row, col) {
+                         if(cellData)
+                             $(td).html('<a href="http://invest.ppdai.com/loan/info?id='+cellData+'" target="_blank" >'+cellData+'</a>');
+                     }
+                },{
                     targets: 3,
                     createdCell: function (td, cellData, rowData, row, col) {
                         if(cellData)
-                            $(td).text(format(cellData));
+                        $(td).text(format(cellData));
                     }
                 }]
             });
 
+/*
+            $data_table.on('order.dt search.dt', function () {
+                $data_table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                    cell.innerHTML = i+1;
+                });
+            }).draw();
+*/
 
             function add0(m){return m<10?'0'+m:m }
 

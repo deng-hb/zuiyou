@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php $title = '看板' ?>
-    <?php require_once '_/head.php' ?>
+    <?php $title = '看板'; require_once '_/head.php' ?>
 </head>
 
 <body class="theme-white">
@@ -29,72 +28,88 @@
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-4">
                         <div class="widget am-cf">
                             <div class="widget-head am-cf">
-                                <div class="widget-title am-fl">月度财务收支计划</div>
-                                <div class="widget-function am-fr">
-                                    <a href="javascript:;" class="am-icon-cog"></a>
-                                </div>
+                                <div class="widget-title am-fl">借款信息数目</div>
                             </div>
                             <div class="widget-body am-fr">
                                 <div class="am-fl">
-                                    <div class="widget-fluctuation-period-text">
-                                        ￥61746.45
-                                        <button class="widget-fluctuation-tpl-btn">
-                        <i class="am-icon-calendar"></i>
-                        更多月份
-                      </button>
-                                    </div>
-                                </div>
-                                <div class="am-fr am-cf">
-                                    <div class="widget-fluctuation-description-amount text-success" am-cf>
-                                        +￥30420.56
+                                    <div id="loan-count" class="widget-fluctuation-period-text">
 
-                                    </div>
-                                    <div class="widget-fluctuation-description-text am-text-right">
-                                        8月份收入
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                     </div>
-                    <div class="am-u-sm-12 am-u-md-6 am-u-lg-4">
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-4">
                         <div class="widget widget-primary am-cf">
-                            <div class="widget-statistic-header">
-                                本季度利润
+                            <div class="widget-title am-fl">
+                                <div class="widget-title am-fl">借款人信息数</div>
                             </div>
-                            <div class="widget-statistic-body">
-                                <div class="widget-statistic-value">
-                                    ￥27,294
+                            <div class="widget-body am-fr">
+                                <div id="pdu-count" class="widget-statistic-value">
+
                                 </div>
-                                <div class="widget-statistic-description">
-                                    本季度比去年多收入 <strong>2593元</strong> 人民币
-                                </div>
-                                <span class="widget-statistic-icon am-icon-credit-card-alt"></span>
                             </div>
                         </div>
                     </div>
-                    <div class="am-u-sm-12 am-u-md-6 am-u-lg-4">
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-4">
                         <div class="widget widget-purple am-cf">
-                            <div class="widget-statistic-header">
-                                本季度利润
+                            <div class="widget-title am-fl">
+                                <div class="widget-title am-fl">借款金额数</div>
                             </div>
-                            <div class="widget-statistic-body">
-                                <div class="widget-statistic-value">
-                                    ￥27,294
+                            <div class="widget-body am-fr">
+                                <div id="loan-amount" class="widget-statistic-value">
+
                                 </div>
-                                <div class="widget-statistic-description">
-                                    本季度比去年多收入 <strong>2593元</strong> 人民币
-                                </div>
-                                <span class="widget-statistic-icon am-icon-support"></span>
                             </div>
                         </div>
                     </div>
                 </div>
 
             </div>
+
+            <div class="row-content am-cf">
+
+                <div class="widget am-cf">
+                    <div class="widget-head am-cf">
+                        <div class="widget-title am-fl">用户列表</div>
+
+                    </div>
+                    <div class="widget-body am-fr">
+
+                        <table width="100%" class="am-table am-table-striped am-table-bordered am-table-compact am-text-nowrap" id="data-table">
+                          <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>pdu</th>
+                              <th>余额</th>
+                              <th>状态</th>
+                              <th>操作</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <?php require_once '_/scripts.php' ?>
+    <script>
+       $(function(){
+            // 信息公开
+            jq.ajax(zuiyou.data,{},function(res){
+                $('#loan-count').text(res.loanCount);
+                $('#pdu-count').text(res.pduCount);
+                $('#loan-amount').text('¥'+res.totalAmount);
+            });
+
+
+            $('#data-table').DataTable({
+              responsive: true,
+              dom: 'ti'
+            });
+        });
+    </script>
 </body>
 
 </html>

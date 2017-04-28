@@ -1,5 +1,6 @@
 // 配置
 window.zuiyou = {
+    data:"https://gateway.zuiyou.bid/",
     session:"https://gateway.zuiyou.bid/session",
     signin:"https://gateway.zuiyou.bid/user/signin",
     signup:"https://gateway.zuiyou.bid/user/signup",
@@ -10,21 +11,3 @@ window.zuiyou = {
     ruleCreate:"https://gateway.zuiyou.bid/user/rule/create",
     historyList:"https://gateway.zuiyou.bid/history/list"
 };
-/*
-toastr.options = {
-  "closeButton": false,
-  "debug": false,
-  "newestOnTop": false,
-  "progressBar": false,
-  "positionClass": "toast-top-center",
-  "preventDuplicates": false,
-  "onclick": null,
-  "showDuration": "300",
-  "hideDuration": "2000",
-  "timeOut": "5000",
-  "extendedTimeOut": "1000",
-  "showEasing": "swing",
-  "hideEasing": "linear",
-  "showMethod": "fadeIn",
-  "hideMethod": "fadeOut"
-}*/

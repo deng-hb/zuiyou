@@ -7,7 +7,7 @@ window.jq.table = function(conf){
 	var sel = conf.sel?conf.sel:'#data-table';
 
 	// mdl-grid length,info  paging
-	var defalutDom = 'tip';
+	var defalutDom = 'tlip';
 
 	var dom = conf.dom?conf.dom:defalutDom;
 	var url = conf.url;
