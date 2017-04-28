@@ -16,19 +16,18 @@
             <!-- 菜单 -->
             <ul class="sidebar-nav">
                 <li class="sidebar-nav-link">
-                    <a href="dashboard.php" class="<?php echo $active == 'index'?'active':'' ?>">
+                    <a href="/dashboard" class="<?php echo $active == 'index'?'active':'' ?>">
                         <i class="am-icon-home sidebar-nav-link-logo"></i> 首页
                     </a>
                 </li>
                 <li class="sidebar-nav-link">
-                    <a href="rule.php" class="<?php echo $active == 'rule'?'active':'' ?>">
+                    <a href="/dashboard/rule" class="<?php echo $active == 'rule'?'active':'' ?>">
                         <i class="am-icon-calendar sidebar-nav-link-logo"></i> 投标规则
                     </a>
                 </li>
                 <li class="sidebar-nav-link">
-                    <a href="history.php" class="<?php echo $active == 'history'?'active':'' ?>">
+                    <a href="/dashboard/history" class="<?php echo $active == 'history'?'active':'' ?>">
                         <i class="am-icon-wpforms sidebar-nav-link-logo"></i> 投标记录
-
                     </a>
                 </li>
             </ul>

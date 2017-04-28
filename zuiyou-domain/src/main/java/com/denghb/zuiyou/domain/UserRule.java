@@ -25,7 +25,7 @@ CREATE TABLE `user_rule` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4
  <pre>
  * @author DbHelper
- * @generateTime Fri Apr 28 20:43:06 CST 2017
+ * @generateTime Fri Apr 28 21:30:03 CST 2017
  */
 @Table(name="user_rule",database="zuiyou")
 public class UserRule implements java.io.Serializable {

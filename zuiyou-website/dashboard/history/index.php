@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php $title = '投标记录'; require_once '_/head.php' ?>
+    <?php $title = '投标记录'; require_once '../../_/head.php' ?>
 </head>
 
 <body class="theme-white">
     <div class="am-g tpl-g">
         <!-- 头部 -->
-        <?php require_once '_/header.php' ?>
+        <?php require_once '../../_/header.php' ?>
         <!-- 侧边导航栏 -->
-        <?php $active = 'history'; require_once '_/sidebar.php' ?>
+        <?php $active = 'history'; require_once '../../_/sidebar.php' ?>
 
         <!-- 内容区域 -->
         <div class="tpl-content-wrapper">
@@ -40,7 +40,7 @@
         </div>
 
     </div>
-    <?php require_once '_/scripts.php' ?>
+    <?php require_once '../../_/scripts.php' ?>
     <script>
        $(function(){
             var $data_table = jq.table({
@@ -56,7 +56,7 @@
                     targets: 3,
                     createdCell: function (td, cellData, rowData, row, col) {
                         if(cellData)
-                        $(td).text(format(cellData));
+                        $(td).text(Common.Date.format(new Date(cellData),'yyyy-MM-dd HH:mm'));
                     }
                 }]
             });
@@ -69,20 +69,6 @@
             }).draw();
 */
 
-            function add0(m){return m<10?'0'+m:m }
-
-            function format(shijianchuo)
-            {
-                //shijianchuo是整数，否则要parseInt转换
-                var time = new Date(shijianchuo);
-                var y = time.getFullYear();
-                var m = time.getMonth()+1;
-                var d = time.getDate();
-                var h = time.getHours();
-                var mm = time.getMinutes();
-                var s = time.getSeconds();
-                return y+'-'+add0(m)+'-'+add0(d)+' '+add0(h)+':'+add0(mm)+':'+add0(s);
-            }
         });
     </script>
 </body>

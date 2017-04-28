@@ -27,15 +27,16 @@ window.jq.table = function(conf){
 	var columnDefs = conf.columnDefs;
 	
 	return $(sel).DataTable( {
-		"dom":dom,
-		"select": true,
-    	"processing": true,
-        "serverSide": true,
-        "scrollX": true,
-        "scrollCollapse": true,
+		dom:dom,
+		select: true,
+    	processing: true,
+        serverSide: true,
+        scrollX: true,
+        scrollCollapse: true,
+        responsive: true,
         // "scrollY": '60vh',
-        "sAjaxSource": url,
-        "fnServerData": function ( sSource, aoData, fnCallback, oSettings ) {
+        sAjaxSource: url,
+        fnServerData: function ( sSource, aoData, fnCallback, oSettings ) {
         	// 参数
         	var param = {};
         	for(var i =0,len = aoData.length;i<len;i++){
@@ -78,9 +79,9 @@ window.jq.table = function(conf){
 	        	}
 	        });
         },
-        "order": [[ 0, "desc" ]],
+        order: [[ 0, "desc" ]],
         // https://datatables.net/reference/option/columns.data
-    	"columns": columns,
-    	"columnDefs":columnDefs
+    	columns: columns,
+    	columnDefs:columnDefs
     });
 }

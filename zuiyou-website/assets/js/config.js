@@ -9,5 +9,7 @@ window.zuiyou = {
     bidClose:"https://gateway.zuiyou.bid/user/auth/close",
     authInfo:"https://gateway.zuiyou.bid/user/auth/info",
     ruleCreate:"https://gateway.zuiyou.bid/user/rule/create",
-    historyList:"https://gateway.zuiyou.bid/history/list"
+    historyList:"https://gateway.zuiyou.bid/history/list",
+    ruleList:"https://gateway.zuiyou.bid/user/rule/list"
+
 };

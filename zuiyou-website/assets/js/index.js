@@ -24,10 +24,10 @@ $(function(){
                     $.removeCookie('auth-token');
                     $.removeCookie('auth-pdu');
                     alert("授权成功");
-                    jump('dashboard.html');
+                    window.location.href = '/dashboard';
                 });
             } else {
-                jump('/dashboard.html');
+                window.location.href = '/dashboard';
             }
 
         }
@@ -50,7 +50,7 @@ $(function(){
 
             alert("注册成功");
 
-            jump('/dashboard.html');
+            window.location.href = '/dashboard';
         }
     });
 
@@ -75,7 +75,8 @@ $(function(){
             $.removeCookie('auth-pdu');
             console.log(data);
             alert("授权成功");
-            jump('/dashboard.html');
+            window.location.href = '/dashboard';
+
         });
     }
 });

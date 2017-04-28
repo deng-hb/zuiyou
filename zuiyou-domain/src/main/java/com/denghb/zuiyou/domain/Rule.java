@@ -11,7 +11,8 @@ import com.denghb.dbhelper.annotation.Table;
  <pre>
 CREATE TABLE `rule` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `amount` decimal(10,2) DEFAULT NULL COMMENT '金额',
+  `name` varchar(100) DEFAULT NULL COMMENT '规则名称',
+  `amount` decimal(10,2) DEFAULT NULL COMMENT '投标金额',
   `age_min` int(11) DEFAULT NULL COMMENT '最小年龄',
   `age_max` int(11) DEFAULT NULL COMMENT '最大年龄',
   `sex_is_men` tinyint(4) DEFAULT NULL COMMENT '性别男',
@@ -34,7 +35,7 @@ CREATE TABLE `rule` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8
  <pre>
  * @author DbHelper
- * @generateTime Fri Apr 28 20:43:05 CST 2017
+ * @generateTime Fri Apr 28 21:30:03 CST 2017
  */
 @Table(name="rule",database="zuiyou")
 public class Rule implements java.io.Serializable {
@@ -45,7 +46,11 @@ public class Rule implements java.io.Serializable {
 	@Id@Column(name="id")
 	private Long id;
 	
-	/** 金额 */
+	/** 规则名称 */
+	@Column(name="name")
+	private String name;
+	
+	/** 投标金额 */
 	@Column(name="amount")
 	private java.math.BigDecimal amount;
 	
@@ -116,6 +121,14 @@ public class Rule implements java.io.Serializable {
 
 	public void setId(Long id){
 		this.id = id;
+	}
+
+	public String getName(){
+		return name;
+	}
+
+	public void setName(String name){
+		this.name = name;
 	}
 
 	public java.math.BigDecimal getAmount(){
@@ -251,6 +264,10 @@ public class Rule implements java.io.Serializable {
 		StringBuffer str = new StringBuffer("Rule [");
 		str.append("id=\"");
 		str.append(id);
+		str.append("\"");
+		str.append(",");
+		str.append("name=\"");
+		str.append(name);
 		str.append("\"");
 		str.append(",");
 		str.append("amount=\"");

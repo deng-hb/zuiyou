@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php $title = '看板'; require_once '_/head.php' ?>
+    <?php $title = '看板'; require_once '../_/head.php' ?>
 </head>
 
 <body class="theme-white">
     <div class="am-g tpl-g">
         <!-- 头部 -->
-        <?php require_once '_/header.php' ?>
+        <?php require_once '../_/header.php' ?>
         <!-- 侧边导航栏 -->
-        <?php $active = 'index'; require_once '_/sidebar.php' ?>
+        <?php $active = 'index'; require_once '../_/sidebar.php' ?>
 
         <!-- 内容区域 -->
         <div class="tpl-content-wrapper">
@@ -93,7 +93,7 @@
             </div>
         </div>
     </div>
-    <?php require_once '_/scripts.php' ?>
+    <?php require_once '../_/scripts.php' ?>
     <script>
        $(function(){
             // 信息公开
