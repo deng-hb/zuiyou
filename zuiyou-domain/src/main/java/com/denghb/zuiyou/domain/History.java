@@ -13,6 +13,7 @@ CREATE TABLE `history` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) NOT NULL COMMENT '投标用户',
   `loan_id` int(11) NOT NULL COMMENT '标的ID',
+  `title` varchar(100) DEFAULT NULL COMMENT '标题',
   `pdu` varchar(100) NOT NULL DEFAULT '' COMMENT '借款人',
   `remarks` varchar(200) DEFAULT NULL COMMENT '备注',
   `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '插入时间',
@@ -25,7 +26,7 @@ CREATE TABLE `history` (
 ) ENGINE=InnoDB AUTO_INCREMENT=990 DEFAULT CHARSET=utf8
  <pre>
  * @author DbHelper
- * @generateTime Thu Apr 27 20:22:26 CST 2017
+ * @generateTime Fri Apr 28 20:43:05 CST 2017
  */
 @Table(name="history",database="zuiyou")
 public class History implements java.io.Serializable {
@@ -43,6 +44,10 @@ public class History implements java.io.Serializable {
 	/** 标的ID */
 	@Column(name="loan_id")
 	private Integer loanId;
+	
+	/** 标题 */
+	@Column(name="title")
+	private String title;
 	
 	/** 借款人 */
 	@Column(name="pdu")
@@ -87,6 +92,14 @@ public class History implements java.io.Serializable {
 
 	public void setLoanId(Integer loanId){
 		this.loanId = loanId;
+	}
+
+	public String getTitle(){
+		return title;
+	}
+
+	public void setTitle(String title){
+		this.title = title;
 	}
 
 	public String getPdu(){
@@ -142,6 +155,10 @@ public class History implements java.io.Serializable {
 		str.append(",");
 		str.append("loanId=\"");
 		str.append(loanId);
+		str.append("\"");
+		str.append(",");
+		str.append("title=\"");
+		str.append(title);
 		str.append("\"");
 		str.append(",");
 		str.append("pdu=\"");

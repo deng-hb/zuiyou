@@ -28,7 +28,7 @@ CREATE TABLE `user_auth` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8
  <pre>
  * @author DbHelper
- * @generateTime Thu Apr 27 20:22:27 CST 2017
+ * @generateTime Fri Apr 28 20:43:05 CST 2017
  */
 @Table(name="user_auth",database="zuiyou")
 public class UserAuth implements java.io.Serializable {

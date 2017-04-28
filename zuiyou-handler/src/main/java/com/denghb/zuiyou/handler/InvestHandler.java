@@ -96,6 +96,7 @@ public class InvestHandler {
         history.setPdu(pdu.getPdu());
         history.setUserId(rule.getUserId());
         history.setLoanId(loan.getId());
+        history.setTitle(loan.getTitle());
         String body = JacksonUtils.toJson(history);
         HttpUtils.send(Constants.Server.INVEST_HISTORY_CREATE_URL, body);
     }

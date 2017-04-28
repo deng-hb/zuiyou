@@ -34,7 +34,7 @@ CREATE TABLE `rule` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8
  <pre>
  * @author DbHelper
- * @generateTime Thu Apr 27 20:22:27 CST 2017
+ * @generateTime Fri Apr 28 20:43:05 CST 2017
  */
 @Table(name="rule",database="zuiyou")
 public class Rule implements java.io.Serializable {
