@@ -48,7 +48,7 @@ $(function(){
     jq.form($signup_form, function(){return true}, function(data){
         if(data.code){
 
-            toastr["success"]("注册成功");
+            alert("注册成功");
 
             jump('/dashboard.html');
         }
