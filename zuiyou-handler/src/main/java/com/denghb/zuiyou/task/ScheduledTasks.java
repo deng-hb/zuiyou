@@ -37,6 +37,7 @@ public class ScheduledTasks {
 
     }
 
+    // 低风险
     // http://invest.ppdai.com/MiddleUser/index?user=ppd_sys_ddup18mu0044
     @Scheduled(fixedRate = 5000)
     public void run1() {
@@ -52,11 +53,13 @@ public class ScheduledTasks {
     }
 
 
+    // 中风险
     @Scheduled(fixedRate = 4000)
     public void run2() {
         run(4);
     }
 
+    // 高风险
     @Scheduled(fixedRate = 3000)
     public void run3() {
         run(5);
@@ -75,7 +78,7 @@ public class ScheduledTasks {
 
     }
 
-    public void handler(List<Loan> list){
+    public void handler(List<Loan> list) {
         List<Pdu> pduList = new ArrayList<>();
         for (Loan loan : list) {
             if (null == loan || null == loan.getId()) {

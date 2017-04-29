@@ -42,11 +42,6 @@ public class Client {
         // stompClient.setTaskScheduler(taskScheduler); // for heartbeats
 
         connection();
-        try {
-            Thread.sleep(Long.MAX_VALUE);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
     }
 

@@ -6,6 +6,7 @@ import com.denghb.zuiyou.domain.History;
 import com.denghb.zuiyou.domain.Loan;
 import com.denghb.zuiyou.domain.Pdu;
 import com.denghb.zuiyou.domain.vo.UserRuleVo;
+import com.denghb.zuiyou.handler.utils.NumberUtils;
 import com.denghb.zuiyou.utils.HttpUtils;
 import com.denghb.zuiyou.utils.JacksonUtils;
 import org.jsoup.Connection;
@@ -49,19 +50,12 @@ public class InvestHandler {
      * @return
      */
     private boolean compare(UserRuleVo rule, Loan loan, Pdu pdu) {
-        // 比最小还小
-        if (null == rule.getLimitMin() || rule.getLimitMin().intValue() > loan.getLimit().intValue()) {
-            return false;
-        }
-        // 比最大还大
-        if (null == rule.getLimitMax() || rule.getLimitMax().intValue() < loan.getLimit().intValue()) {
+        // 期限
+        if (!NumberUtils.between(rule.getLimitMin(), loan.getLimit(), rule.getLimitMax())) {
             return false;
         }
         // 利率
-        if (null == rule.getRateMin() || rule.getRateMin().doubleValue() > loan.getRate().doubleValue()){
-            return false;
-        }
-        if (null == rule.getLimitMax() || rule.getLimitMax().doubleValue() < loan.getRate().doubleValue()){
+        if (!NumberUtils.between(rule.getRateMin(), loan.getRate(), rule.getLimitMax())) {
             return false;
         }
         return true;
@@ -103,7 +97,7 @@ public class InvestHandler {
         HttpUtils.send(Constants.Server.INVEST_HISTORY_CREATE_URL, body);
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Connection connection = Jsoup.connect("http://www.ppdai.com/user/pdu4248118068");
         connection.header("Cookie", "authid=98315E594BF26C87716AC20701589F401B5B462D98031539D9E285141392530BC961C1A85F4522D1D2DBE983F20880722855AA898A30B5B238A3321988C3B6CED28FB47FBAE8C8E59B8C0BC25828471D8CF1B5E3F7C9FF53D76AFE4EE2B3CC1E80CCF2B1A8FF0C08A82C35B3972E06B6B8899D4010E1521A501228EE11CC9BF923BC689621BBD25536D18208886753F6E73D640A2A907142626D00EF5F09D23DAD7235B17859F03997C5A55C77989B0367EA5A2D; token=192ed2ac-1b99-4ddc-b687-ab318238364d; ");
         Document document = null;
