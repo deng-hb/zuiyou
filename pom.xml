@@ -15,6 +15,7 @@
         <module>zuiyou-domain</module>
         <module>zuiyou-handler</module>
         <module>zuiyou-gateway</module>
+        <module>zuiyou-openapi</module>
     </modules>
 
     <properties>

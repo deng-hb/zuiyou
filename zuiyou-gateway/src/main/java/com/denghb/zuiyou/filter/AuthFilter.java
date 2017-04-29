@@ -38,6 +38,8 @@ public class AuthFilter implements Filter {
         exclusions.add("/user/rule/listAll");
         exclusions.add("/user/auth/updateBalance");
         exclusions.add("/user/auth/invalid");
+
+        exclusions.add("/loanInfo/receive");
     }
 
     @Override

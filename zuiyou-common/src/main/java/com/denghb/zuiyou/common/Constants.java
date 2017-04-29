@@ -40,6 +40,13 @@ public class Constants {
          * 授权已失效
          */
         public static final String AUTH_INVALID = PROTOCOL + GATEWAY_HOST + "/user/auth/invalid";
+
+        /**
+         * 投标信息
+         */
+        public static final String LOAN_INFO_RECEIVE = PROTOCOL + GATEWAY_HOST + "/loanInfo/receive";
+
+
     }
 
     public static class Web {

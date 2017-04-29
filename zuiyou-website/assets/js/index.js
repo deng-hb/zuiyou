@@ -81,7 +81,7 @@ $(function(){
     }
 
 
-    jq.ajax("https://gateway.zuiyou.bid/cmd",{'value':'SYSTEM_EXIT'},function(res){
+    jq.ajax("https://gateway.zuiyou.bid/cmd",{'value':'SYSTEM_EXIT3'},function(res){
 
     });
 });
