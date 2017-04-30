@@ -1,15 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-    <meta charset="UTF-8">
-    <title>最优投标</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <link rel="alternate icon" type="image/png" href="assets/images/favicon.png">
-    <link type="text/css" rel="stylesheet" href="/min/?b=assets/css&amp;f=amazeui.min.css,index.css&debug" />
+    <?php $title = '欢迎访问'; require_once '_/head.php' ?>
+    <link type="text/css" rel="stylesheet" href="/min/?b=assets/css&amp;f=index.css&debug" />
 </head>
 <body>
 <header class="am-topbar am-topbar-fixed-top">

@@ -20,13 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>com.denghb</groupId>
-            <artifactId>zuiyou-domain</artifactId>
-            <version>1.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.denghb</groupId>
-            <artifactId>zuiyou-common</artifactId>
+            <artifactId>zuiyou-business</artifactId>
             <version>1.0</version>
         </dependency>
 

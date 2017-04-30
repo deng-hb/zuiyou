@@ -2,7 +2,7 @@
         <header>
             <!-- logo -->
             <div class="am-fl tpl-header-logo">
-                <a href="javascript:;"><img src="assets/img/logo.png" alt=""></a>
+                <a href="javascript:;">最优投标</a>
             </div>
             <!-- 右侧内容 -->
             <div class="tpl-header-fluid">

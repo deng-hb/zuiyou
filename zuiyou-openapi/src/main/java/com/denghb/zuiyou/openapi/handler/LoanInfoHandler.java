@@ -1,11 +1,11 @@
 package com.denghb.zuiyou.openapi.handler;
 
 import com.denghb.zuiyou.common.Constants;
+import com.denghb.zuiyou.common.utils.HttpUtils;
 import com.denghb.zuiyou.openapi.domain.LoanDetail;
 import com.denghb.zuiyou.openapi.domain.LoanInfo;
 import com.denghb.zuiyou.openapi.utils.LoanUtils;
-import com.denghb.zuiyou.utils.HttpUtils;
-import com.denghb.zuiyou.utils.JacksonUtils;
+import com.denghb.zuiyou.common.utils.JacksonUtils;
 import com.ppdai.open.core.OpenApiClient;
 import com.ppdai.open.core.PropertyObject;
 import com.ppdai.open.core.Result;
@@ -14,9 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by denghb on 2017/4/29.
@@ -24,8 +22,6 @@ import java.util.Map;
 public class LoanInfoHandler implements Runnable {
 
     private static Logger log = LoggerFactory.getLogger(LoanInfoHandler.class);
-
-    private Map<Integer, LoanInfo> loanInfoMap = new HashMap<>();
 
     @Override
     public void run() {
@@ -47,31 +43,28 @@ public class LoanInfoHandler implements Runnable {
 
 
         List<LoanInfo> list = JacksonUtils.toList(content, LoanInfo.class);
+
         if (null == list || list.isEmpty()) {
+            outLog(0, 0);
             return;
         }
+        // 初始化
+        LoanUtils.init(list);
 
-        int size = list.size();
-        for (int i = 0; i < size; i++) {
-            LoanInfo loanInfo = list.get(i);
-            Integer id = loanInfo.getId();
+        int allSize = list.size();
 
-            LoanUtils.setId(id);
-
-            loanInfoMap.put(id, loanInfo);
-        }
-
-
-        // 排重
+        // 新的ID排重
         List<Integer> data = LoanUtils.getNewIds();
         if (null == data || data.isEmpty()) {
-            log.info("load all id:[{}],new id:[{}]", size, 0);
+            outLog(allSize, 0);
             return;
         }
 
-        int dataSize = data.size();
+        int newSize = data.size();
+        outLog(allSize, newSize);
+
         List<Integer> ids = new ArrayList<Integer>();
-        for (int i = 0; i < dataSize; i++) {
+        for (int i = 0; i < newSize; i++) {
 
             ids.add(data.get(i));
 
@@ -81,13 +74,16 @@ public class LoanInfoHandler implements Runnable {
             }
 
             // 最后几个
-            if (i == size - 1 && !ids.isEmpty()) {
+            if (i == newSize - 1 && !ids.isEmpty()) {
                 loadDetail(ids);
             }
         }
 
-        log.info("load all id:[{}],new id:[{}]", size, dataSize);
+    }
 
+    private void outLog(int allSize, int newSize) {
+
+        log.info("load all id:[{}],new id:[{}]", allSize, newSize);
     }
 
     private void loadDetail(List<Integer> listIds) throws Exception {
@@ -102,7 +98,11 @@ public class LoanInfoHandler implements Runnable {
         List<LoanDetail> list = JacksonUtils.toList(content, LoanDetail.class);
 
         for (LoanDetail detail : list) {
-            LoanInfo loanInfo = loanInfoMap.get(detail.getId());
+            LoanInfo loanInfo = LoanUtils.getLoanInfo(detail.getId());
+            if (null == loanInfo) {
+                log.info("null id:[{}]", detail.getId());
+                continue;
+            }
             detail.setTitle(loanInfo.getTitle());
             detail.setPayWay(loanInfo.getPayWay());
         }

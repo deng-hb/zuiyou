@@ -14,15 +14,6 @@
         <!-- 内容区域 -->
         <div class="tpl-content-wrapper">
 
-            <div class="container-fluid am-cf">
-                <div class="row">
-                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
-                        <div class="page-header-heading"><span class="am-icon-home page-header-heading-icon"></span> 部件首页 <small>Amaze UI</small></div>
-                        <p class="page-header-description">Amaze UI 含近 20 个 CSS 组件、20 余 JS 组件，更有多个包含不同主题的 Web 组件。</p>
-                    </div>
-                </div>
-            </div>
-
             <div class="row-content am-cf">
                 <div class="row  am-cf">
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-4">
@@ -38,34 +29,8 @@
                                 </div>
                             </div>
                         </div>
-
-                    </div>
-                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-4">
-                        <div class="widget widget-primary am-cf">
-                            <div class="widget-title am-fl">
-                                <div class="widget-title am-fl">借款人信息数</div>
-                            </div>
-                            <div class="widget-body am-fr">
-                                <div id="pdu-count" class="widget-statistic-value">
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-4">
-                        <div class="widget widget-purple am-cf">
-                            <div class="widget-title am-fl">
-                                <div class="widget-title am-fl">借款金额数</div>
-                            </div>
-                            <div class="widget-body am-fr">
-                                <div id="loan-amount" class="widget-statistic-value">
-
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
-
             </div>
 
             <div class="row-content am-cf">
@@ -76,7 +41,15 @@
 
                     </div>
                     <div class="widget-body am-fr">
-
+                       <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+                           <div class="am-form-group">
+                               <div class="am-btn-toolbar">
+                                   <div class="am-btn-group am-btn-group-xs">
+                                       <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
                         <table width="100%" class="am-table am-table-striped am-table-bordered am-table-compact am-text-nowrap" id="data-table">
                           <thead>
                             <tr>
@@ -103,11 +76,31 @@
                 $('#loan-amount').text('¥'+res.totalAmount);
             });
 
+            var $data_table = jq.table({
+                url:zuiyou.userList,
+                fields:["id","pdu","balance","status","createdTime"],
+                columnDefs: [{
+                     targets: 3,
+                     createdCell: function (td, cellData, rowData, row, col) {
+                         if (1 == cellData){
+                            $(td).text('正常');
+                         } else {
+                            $(td).text('异常');
 
-            $('#data-table').DataTable({
-              responsive: true,
-              dom: 'ti'
+                         }
+                     }
+                },{
+                    targets: 4,
+                    createdCell: function (td, cellData, rowData, row, col) {
+                        $(td).html('<a href="">授权</a>');
+                    }
+                }]
             });
+
+            // 定时检测登录状态
+                setInterval(function() {
+                    jq.ajax(zuiyou.session,{},function(res){});
+                }, 30 * 1000);
         });
     </script>
 </body>

@@ -23,6 +23,15 @@
                     </div>
                     <div class="widget-body am-fr">
 
+                       <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+                           <div class="am-form-group">
+                               <div class="am-btn-toolbar">
+                                   <div class="am-btn-group am-btn-group-xs">
+                                       <a href="/dashboard/rule/create" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</a>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
                         <table width="100%" class="am-table am-table-striped am-table-bordered am-table-compact am-text-nowrap" id="data-table">
                           <thead>
                             <tr>
@@ -51,19 +60,16 @@
                 columnDefs: [{
                      targets: 3,
                      createdCell: function (td, cellData, rowData, row, col) {
-                         if(cellData)
-                            $(td).text(rowData.rateMin+"%~"+rowData.rateMax+"%");
+                         $(td).text(rowData.rateMin+"%~"+rowData.rateMax+"%");
                       }
                 },{
                      targets: 4,
                      createdCell: function (td, cellData, rowData, row, col) {
-                         if(rowData)
                          $(td).text(rowData.limitMin+"月~"+rowData.limitMax+"月");
                      }
                 },{
                     targets: 5,
                     createdCell: function (td, cellData, rowData, row, col) {
-                        if(rowData)
                         $(td).text(rowData.ageMin+"岁~"+rowData.ageMax+"岁");
                     }
                 }]

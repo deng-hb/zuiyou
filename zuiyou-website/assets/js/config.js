@@ -8,8 +8,10 @@ window.zuiyou = {
     bidOpen:"https://gateway.zuiyou.bid/user/auth/open",
     bidClose:"https://gateway.zuiyou.bid/user/auth/close",
     authInfo:"https://gateway.zuiyou.bid/user/auth/info",
+    userList:"https://gateway.zuiyou.bid/user/auth/list",
     ruleCreate:"https://gateway.zuiyou.bid/user/rule/create",
-    historyList:"https://gateway.zuiyou.bid/history/list",
-    ruleList:"https://gateway.zuiyou.bid/user/rule/list"
+    ruleQuery:"https://gateway.zuiyou.bid/user/rule/query",
+    ruleList:"https://gateway.zuiyou.bid/user/rule/list",
+    historyList:"https://gateway.zuiyou.bid/history/list"
 
 };
