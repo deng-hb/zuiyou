@@ -1,11 +1,12 @@
-package com.denghb.zuiyou.handler;
+package com.denghb.zuiyou.crawler;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
- * Created by denghb on 2017/4/29.
+ * Hello world!
+ *
  */
 @SpringBootApplication
 @EnableScheduling
@@ -16,4 +17,3 @@ public class Application {
     }
 
 }
-

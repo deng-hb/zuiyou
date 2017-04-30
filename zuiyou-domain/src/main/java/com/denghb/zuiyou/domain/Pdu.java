@@ -51,7 +51,7 @@ CREATE TABLE `pdu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
  <pre>
  * @author DbHelper
- * @generateTime Sat Apr 29 22:22:26 CST 2017
+ * @generateTime Sun Apr 30 18:17:23 CST 2017
  */
 @Table(name="pdu",database="zuiyou")
 public class Pdu implements java.io.Serializable {

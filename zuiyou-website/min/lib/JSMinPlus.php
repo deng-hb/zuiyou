@@ -1574,7 +1574,7 @@ class JSParser
 		return $n;
 	}
 
-	// Statement stack and nested statement handler.
+	// Statement stack and nested statement com.denghb.zuiyou.crawler.
 	private function nest($x, $node, $end = false)
 	{
 		array_push($x->stmtStack, $node);

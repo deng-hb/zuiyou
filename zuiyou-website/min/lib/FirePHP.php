@@ -164,7 +164,7 @@ class FirePHP {
     protected static $instance = null;
     
     /**
-     * Flag whether we are logging from within the exception handler
+     * Flag whether we are logging from within the exception com.denghb.zuiyou.crawler
      * 
      * @var boolean
      */
@@ -398,15 +398,15 @@ class FirePHP {
     }
 
     /**
-     * Register FirePHP as your error handler
+     * Register FirePHP as your error com.denghb.zuiyou.crawler
      * 
      * Will throw exceptions for each php error.
      * 
-     * @return mixed Returns a string containing the previously defined error handler (if any)
+     * @return mixed Returns a string containing the previously defined error com.denghb.zuiyou.crawler (if any)
      */
     public function registerErrorHandler($throwErrorExceptions = false)
     {
-        //NOTE: The following errors will not be caught by this error handler:
+        //NOTE: The following errors will not be caught by this error com.denghb.zuiyou.crawler:
         //      E_ERROR, E_PARSE, E_CORE_ERROR,
         //      E_CORE_WARNING, E_COMPILE_ERROR,
         //      E_COMPILE_WARNING, E_STRICT
@@ -417,7 +417,7 @@ class FirePHP {
     }
 
     /**
-     * FirePHP's error handler
+     * FirePHP's error com.denghb.zuiyou.crawler
      * 
      * Throws exception for each php error that will occur.
      *
@@ -446,11 +446,11 @@ class FirePHP {
     }
   
     /**
-     * Register FirePHP as your exception handler
+     * Register FirePHP as your exception com.denghb.zuiyou.crawler
      * 
-     * @return mixed Returns the name of the previously defined exception handler,
+     * @return mixed Returns the name of the previously defined exception com.denghb.zuiyou.crawler,
      *               or NULL on error.
-     *               If no previous handler was defined, NULL is also returned.
+     *               If no previous com.denghb.zuiyou.crawler was defined, NULL is also returned.
      */
     public function registerExceptionHandler()
     {
@@ -458,7 +458,7 @@ class FirePHP {
     }
   
     /**
-     * FirePHP's exception handler
+     * FirePHP's exception com.denghb.zuiyou.crawler
      * 
      * Logs all exceptions to your firebug console and then stops the script.
      *
@@ -500,7 +500,7 @@ class FirePHP {
     }
   
     /**
-     * FirePHP's assertion handler
+     * FirePHP's assertion com.denghb.zuiyou.crawler
      *
      * Logs all assertions to your firebug console and then stops the script.
      *
@@ -746,7 +746,7 @@ class FirePHP {
         }
 
         if ($this->headersSent($filename, $linenum)) {
-            // If we are logging from within the exception handler we cannot throw another exception
+            // If we are logging from within the exception com.denghb.zuiyou.crawler we cannot throw another exception
             if ($this->inExceptionHandler) {
                 // Simply echo the error out to the page
                 echo '<div style="border: 2px solid red; font-family: Arial; font-size: 12px; background-color: lightgray; padding: 5px;"><span style="color: red; font-weight: bold;">FirePHP ERROR:</span> Headers already sent in <b>' . $filename . '</b> on line <b>' . $linenum . '</b>. Cannot send log data to FirePHP. You must have Output Buffering enabled via ob_start() or output_buffering ini directive.</div>';

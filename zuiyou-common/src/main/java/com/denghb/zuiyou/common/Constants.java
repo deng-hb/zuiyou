@@ -46,6 +46,10 @@ public class Constants {
          */
         public static final String LOAN_INFO_RECEIVE = PROTOCOL + GATEWAY_HOST + "/loanInfo/receive";
 
+        /**
+         * 获取投标规则
+         */
+        public static final String RULE_LIST_ALL_URL = PROTOCOL + GATEWAY_HOST + "/user/rule/listAll";
 
     }
 

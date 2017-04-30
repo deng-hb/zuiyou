@@ -45,7 +45,7 @@
                            <div class="am-form-group">
                                <div class="am-btn-toolbar">
                                    <div class="am-btn-group am-btn-group-xs">
-                                       <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
+                                       <a href="https://ac.ppdai.com/oauth2/login?AppID=3d45717f69064d7ea54d1d3ea1d5c685&ReturnUrl=http://zuiyou.bid.denghb.com/" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</a>
                                    </div>
                                </div>
                            </div>

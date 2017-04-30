@@ -33,7 +33,7 @@ public class UserAuthServiceImpl implements UserAuthService {
     public void bind(Credential credential, String pdu, String token) {
         long userId = credential.getUserId();
         //
-        UserAuth ua = db.queryForObject("select * from user_auth where user_id = ? and pdu = ? limit 1", UserAuth.class, userId, pdu);
+        UserAuth ua = queryByUserId(userId, pdu);
         if (null != ua) {
             // 更新
             ua.setToken(token);
@@ -92,5 +92,14 @@ public class UserAuthServiceImpl implements UserAuthService {
         sql.append("where user_id = ? and deleted = 0");
         criteria.getParams().add(credential.getUserId());
         return db.list(sql, UserAuth.class, criteria);
+    }
+
+    @Override
+    public void save(long userId, String pdu, String openId, String accessToken, String refreshToken, int expiresIn) {
+        UserAuth ua = queryByUserId(userId, pdu);
+        if (null == ua) {
+            // 更新
+        }
+
     }
 }

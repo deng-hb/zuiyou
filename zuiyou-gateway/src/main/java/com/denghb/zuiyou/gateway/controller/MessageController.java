@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by denghb on 2017/4/29.
  */
 @RestController
+@RequestMapping("/message")
 public class MessageController {
 
     private Logger log = LoggerFactory.getLogger(MessageController.class);
@@ -21,9 +22,9 @@ public class MessageController {
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
 
-    @RequestMapping("/cmd")
+    @RequestMapping("/")
     @ResponseBody
-    public JsonModel cmd(String value){
+    public JsonModel execute(String value){
         simpMessagingTemplate.convertAndSend("/topic/notice", value);
 
 
@@ -33,10 +34,12 @@ public class MessageController {
     /**
      *
      */
-    @MessageMapping("/message")
+    @MessageMapping("/test")
     public void message(String value) {
         log.info("client:{}", value);
         simpMessagingTemplate.convertAndSend("/topic/notice", value);
 
     }
+
+
 }

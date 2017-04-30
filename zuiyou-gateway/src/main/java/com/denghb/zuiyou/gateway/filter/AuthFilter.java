@@ -32,7 +32,7 @@ public class AuthFilter implements Filter {
         exclusions.add("/pdu/receive");
         exclusions.add("/loan/receive");
         exclusions.add("/history/create");
-        exclusions.add("/cmd");
+        exclusions.add("/message/");
         exclusions.add("/user/signin");
         exclusions.add("/user/signup");
         exclusions.add("/user/signout");
@@ -58,7 +58,7 @@ public class AuthFilter implements Filter {
         String ipAddr = WebUtils.getIpAddr(request);
         log.info("client:[{}],method:[{}],ip,[{}],uri:[{}],current:[{}]", client, method, ipAddr, uri, null == credential ? "nil" : credential.getUsername());
 
-        // websocket 直接放行
+        // client 直接放行
         if (null != uri && uri.startsWith("/socket")) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;

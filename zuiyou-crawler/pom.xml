@@ -7,10 +7,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>zuiyou-openapi</artifactId>
+    <artifactId>zuiyou-crawler</artifactId>
     <packaging>jar</packaging>
 
-    <name>zuiyou-openapi</name>
+    <name>zuiyou-crawler</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -21,22 +21,29 @@
 
         <dependency>
             <groupId>com.denghb</groupId>
-            <artifactId>zuiyou-common</artifactId>
+            <artifactId>zuiyou-business</artifactId>
             <version>1.0</version>
         </dependency>
 
         <dependency>
-            <groupId>org.bouncycastle</groupId>
-            <artifactId>bcprov-jdk16</artifactId>
-            <version>1.45</version>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.8.2</version>
         </dependency>
 
         <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>1.10</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
-
     </dependencies>
 
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>

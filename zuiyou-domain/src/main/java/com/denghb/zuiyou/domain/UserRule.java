@@ -22,10 +22,10 @@ CREATE TABLE `user_rule` (
   KEY `IDX_CREATED_TIME` (`created_time`),
   KEY `IDX_UPDATED_TIME` (`updated_time`),
   KEY `IDX_DETELED` (`deleted`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4
  <pre>
  * @author DbHelper
- * @generateTime Sat Apr 29 22:22:27 CST 2017
+ * @generateTime Sun Apr 30 18:17:23 CST 2017
  */
 @Table(name="user_rule",database="zuiyou")
 public class UserRule implements java.io.Serializable {

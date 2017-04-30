@@ -29,14 +29,14 @@ public interface UserAuthService {
      *
      * @param credential
      */
-    void open(Credential credential,String pdu);
+    void open(Credential credential, String pdu);
 
     /**
      * 关闭投标
      *
      * @param credential
      */
-    void close(Credential credential,String pdu);
+    void close(Credential credential, String pdu);
 
     /**
      * 更新指定PDU的余额
@@ -61,4 +61,16 @@ public interface UserAuthService {
      * @return
      */
     PagingResult<UserAuth> list(Credential credential, UserAuthCriteria criteria);
+
+    /**
+     * 保存用户授权
+     *
+     * @param userId
+     * @param pdu
+     * @param openId
+     * @param accessToken
+     * @param refreshToken
+     * @param expiresIn
+     */
+    void save(long userId,String pdu, String openId, String accessToken, String refreshToken, int expiresIn);
 }

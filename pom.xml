@@ -17,6 +17,7 @@
         <module>zuiyou-gateway</module>
         <module>zuiyou-openapi</module>
         <module>zuiyou-business</module>
+        <module>zuiyou-crawler</module>
     </modules>
 
     <properties>
